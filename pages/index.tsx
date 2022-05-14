@@ -1,5 +1,7 @@
 import React from 'react'
 
-export default function TopPage() {
-  return <div></div>
+import { TopPage } from '~/component/pages/index'
+
+export default function Page() {
+  return <TopPage />
 }
