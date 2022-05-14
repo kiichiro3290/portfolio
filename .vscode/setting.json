@@ -1,0 +1,21 @@
+{
+    "[markdown]": {
+        "editor.acceptSuggestionOnEnter": "off",
+        "editor.formatOnSave": false,
+        "editor.renderWhitespace": "all",
+        "editor.wordWrap": "on",
+        "files.trimTrailingWhitespace": false
+        },
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "files.exclude": {
+        "**/node_modules": true,
+        ".next": true,
+        ".yarn": true,
+        "yarn.lock": true
+    },
+    "eslint.alwaysShowStatus": true
+}
