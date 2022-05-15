@@ -1,5 +1,21 @@
 {
-  "extends": [
-    "config:base"
+  "extends": ["config:base"],
+  "timezone": "Asia/Tokyo",
+  "labels": ["renovate"],
+  "schedule": ["after 10pm and before 5am every weekday"],
+  "dependencyDashboard": true,
+  "automerge": true,
+  "baseBranches": ["chore/renovate"],
+  "packageRules": [
+    {
+      "matchDepTypes": ["devDependencies"],
+      "groupName": "devDependencies",
+      "rangeStrategy": "update-lockfile"
+    },
+    {
+      "matchDepTypes": ["dependencies"],
+      "matchUpdateTypes": ["minor", "patch"],
+      "groupName": "dependencies (non-major)"
+    }
   ]
 }
