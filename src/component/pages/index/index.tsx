@@ -1,7 +1,8 @@
-import { SearchIcon } from '@chakra-ui/icons'
-import { Text, Flex, Input, InputGroup, InputLeftElement, Circle, Center } from '@chakra-ui/react'
+import { Text, Flex, Circle, Center } from '@chakra-ui/react'
 import React from 'react'
 import Image from 'next/image'
+import { SearchWindow } from '~/component/uiParts/SearchWindow'
+import { BookmarkContents } from '~/component/uiParts/BookmarkContents'
 
 export const TopPage: React.FC = () => {
   return (
@@ -18,14 +19,11 @@ export const TopPage: React.FC = () => {
         direction='row'
         align='center'
       >
-        <a href='https://github.com/kiichiro3290' target='_blank' rel='noreferrer'>
-          <Flex direction='row' align='center'>
-            <Image src='/images/GitHub-Mark-32px.png' alt='' width='16px' height='16px' />
-            <Text fontSize='xs' pl='2'>
-              kiichiro3290
-            </Text>
-          </Flex>
-        </a>
+        <BookmarkContents
+          linkIcon='github.png'
+          linkUrl='https://github.com/kiichiro3290'
+          text='kiichiro3290'
+        ></BookmarkContents>
       </Flex>
       <Flex w='full'>
         <Flex w='full' direction='column'>
@@ -47,12 +45,7 @@ export const TopPage: React.FC = () => {
             <Center w='full' my='8'>
               <Image src='/images/Kiichiro.svg' alt='' height='80px' width='300px' />
             </Center>
-            <InputGroup w='35%'>
-              <InputLeftElement pointerEvents='none'>
-                <SearchIcon color='gray.400' />
-              </InputLeftElement>
-              <Input rounded='full' placeholder='検索または URL を入力'></Input>
-            </InputGroup>
+            <SearchWindow message='検索または URL を入力'></SearchWindow>
           </Flex>
         </Flex>
       </Flex>
