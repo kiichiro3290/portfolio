@@ -23,7 +23,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
-    "@babel/core": "7.19.6",
+    "@babel/core": "7.20.2",
     "@storybook/addon-actions": "6.5.13",
     "@storybook/addon-essentials": "6.5.13",
     "@storybook/addon-interactions": "6.5.13",
@@ -36,7 +36,7 @@
     "@typescript-eslint/eslint-plugin": "5.42.0",
     "@typescript-eslint/parser": "5.42.0",
     "babel-loader": "9.1.0",
-    "eslint": "8.26.0",
+    "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",
     "eslint-config-prettier": "8.5.0",
     "eslint-plugin-import": "2.26.0",
