@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect, useState } from 'react'
-import { Box, Container } from '@mui/material'
+import { Box, Container, Grid } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { ArticleCard } from './parts/ArticleCard'
@@ -68,19 +68,28 @@ export const NotePage: React.FC = () => {
         }}
       ></Box>
       <Container maxWidth='md' sx={{ pt: theme.spacing(8) }}>
-        {pages &&
-          pages.map((page) => {
-            return (
-              <Fragment key={page.id}>
-                <ArticleCard
-                  lastEdittedAt={page.lastEdittedAt}
-                  title={page.title}
-                  emoji={page.emoji}
-                  tag={page.tag}
-                />
-              </Fragment>
-            )
-          })}
+        <Grid container rowSpacing={6}>
+          {pages &&
+            pages.map((page) => {
+              return (
+                <Grid
+                  key={page.id}
+                  item
+                  xs={12}
+                  sm={6}
+                  md={4}
+                  sx={{ display: 'flex', justifyContent: 'center' }}
+                >
+                  <ArticleCard
+                    lastEdittedAt={page.lastEdittedAt}
+                    title={page.title}
+                    emoji={page.emoji}
+                    tag={page.tag}
+                  />
+                </Grid>
+              )
+            })}
+        </Grid>
       </Container>
     </Box>
   )
