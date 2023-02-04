@@ -45,7 +45,7 @@ export const ApplicationBar: React.FC = () => {
       >
         画像
       </Typography>
-      <IconButton onClick={account.handleClickPopOver} size='large'>
+      <IconButton onClick={app.handleClickAppPopOver} size='large'>
         <Image src='/images/nine-dots.svg' alt='' height='16px' width='16px' />
       </IconButton>
       <Popover
