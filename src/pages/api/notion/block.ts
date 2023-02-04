@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getNotionBlocksData } from '~/api/backend/notion'
-import { createApiResponse } from '~/api/backend/response'
+import { createApiResponse } from '~/utils/response'
 
 import { schemaForType } from '~/utils/zod'
 import { z } from 'zod'

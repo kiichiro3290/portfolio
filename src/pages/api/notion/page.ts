@@ -3,7 +3,7 @@ import { getNotionPagesData, addPageNotionDb } from '~/api/backend/notion'
 
 import { z } from 'zod'
 import { schemaForType } from '~/utils/zod'
-import { createApiResponse } from '~/api/backend/response'
+import { createApiResponse } from '~/utils/response'
 
 export type NotionPagesGetQueryParams = {
   databaseId: string

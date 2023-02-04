@@ -2,7 +2,7 @@ import {
   ListBlockChildrenResponse,
   QueryDatabaseResponse,
 } from '@notionhq/client/build/src/api-endpoints'
-import { SuccessResponse } from '~/api/backend/response'
+import { SuccessResponse } from '~/utils/response'
 import { NotionBlocksGetQueryParams } from '~/pages/api/notion/block'
 import { NotionPagesGetQueryParams } from '~/pages/api/notion/page'
 import { client } from '..'
