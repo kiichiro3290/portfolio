@@ -12,7 +12,6 @@ export const notionApi = {
     await client().post('/notion/page', text)
   },
   getPages: async (params: NotionPagesGetQueryParams) => {
-    console.log(params)
     const result = await client()
       .get<SuccessResponse<QueryDatabaseResponse>>('/notion/page', {
         params,
