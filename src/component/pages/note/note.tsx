@@ -30,7 +30,6 @@ export const NotePage: React.FC = () => {
       const iconType = row.icon?.type ?? ''
       const emoji = iconType ? (row.icon as any)[iconType] : ''
       const tagType = row.properties['Tags'].type
-      console.log(row)
       const tag = (row.properties['Tags'] as any)[tagType][0]
         ? ((row.properties['Tags'] as any)[tagType][0].name as string)
         : ''
