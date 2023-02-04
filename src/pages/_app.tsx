@@ -1,13 +1,15 @@
-import React from 'react'
-import { ChakraProvider } from '@chakra-ui/react'
-import { AppProps } from 'next/app'
+import { AppPropsWithLayout } from '~/types/next'
 
-const MyApp: React.FC<AppProps> = ({ Component, pageProps }) => {
-  return (
-    <ChakraProvider>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+import React, { Fragment } from 'react'
+
+const MyApp: React.FC<AppPropsWithLayout> = ({ Component, pageProps }) => {
+  const getLayout =
+    Component.getLayout ||
+    ((page) => {
+      return page
+    })
+
+  return <Fragment>{getLayout(<Component {...pageProps} />)}</Fragment>
 }
 
 export default MyApp

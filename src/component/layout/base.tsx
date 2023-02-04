@@ -2,10 +2,9 @@ import React from 'react'
 import { ThemeProvider } from '@emotion/react'
 import { CssBaseline, useMediaQuery } from '@mui/material'
 import { FC, Fragment, ReactNode, useEffect } from 'react'
-import { lightTheme } from '~/theme'
 import { GetLayout } from '~/types/next'
-import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch } from '~/store'
+import { Provider, useDispatch, useSelector } from 'react-redux'
+import { AppDispatch, store } from '~/store'
 import { selectTheme, setMode } from '~/store/theme'
 
 type BaseLayoutProps = {
@@ -17,7 +16,11 @@ export const getBaseLayout: GetLayout = (page) => (
 )
 
 const BaseLayout: FC<BaseLayoutProps> = (props) => {
-  return <Layout {...props} />
+  return (
+    <Provider store={store}>
+      <Layout {...props} />
+    </Provider>
+  )
 }
 
 const Layout: FC<BaseLayoutProps> = ({ children }) => {
