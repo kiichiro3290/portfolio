@@ -23,10 +23,10 @@ const notionPagesPostQueryParamsSchema =
     z.object({ databaseId: z.string() })
   )
 
-export const notionPageApiHandler = async (
+export default async function notionPageApiHandler(
   req: NextApiRequest,
   res: NextApiResponse
-) => {
+) {
   if (req.method == 'GET') {
     // Notionのデータベースに紐づいた全てのページを取得する
     const query = notionPagesGetQueryParamsSchema.safeParse(req.query)
@@ -49,12 +49,12 @@ export const notionPageApiHandler = async (
     }
     const { databaseId } = query.data
     try {
-      await addPageNotionDb(databaseId)
+      addPageNotionDb(databaseId)
     } catch (err) {
       return createApiResponse(res).internalServerError(`${err}`)
     }
   }
 
   // メソッドが存在しない時
-  return createApiResponse(res).notFound()
+  return createApiResponse(res).notFound('not found')
 }

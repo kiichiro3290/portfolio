@@ -12,10 +12,10 @@ export type NotionBlocksGetQueryParams = {
 export const notionBlockGetQueryParamsSchema =
   schemaForType<NotionBlocksGetQueryParams>()(z.object({ pageId: z.string() }))
 
-export const notionBlockApiHandler = async (
+export default async function notionBlockApiHandler(
   req: NextApiRequest,
   res: NextApiResponse
-) => {
+) {
   if (req.method == 'GET') {
     // NotionのpageIdに紐づいた全てのブロックを取得する
     const query = notionBlockGetQueryParamsSchema.safeParse(req.query)
@@ -32,5 +32,5 @@ export const notionBlockApiHandler = async (
   }
 
   // メソッドが存在しない時
-  return createApiResponse(res).notFound()
+  return createApiResponse(res).notFound('not found')
 }
