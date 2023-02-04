@@ -3,7 +3,18 @@ import { Card, Box, Chip, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 
-export const ArticleCard: React.FC = () => {
+export type ArticleCardProps = {
+  lastEdittedAt: string
+  title: string
+  emoji: string
+  tag: string
+}
+export const ArticleCard: React.FC<ArticleCardProps> = ({
+  lastEdittedAt,
+  title,
+  emoji,
+  tag,
+}) => {
   const theme = useSelector(selectTheme)
 
   return (
@@ -22,7 +33,7 @@ export const ArticleCard: React.FC = () => {
           backgroundColor: theme.palette.primary.main,
         }}
       >
-        <Chip label='チップ' variant='filled' size='small' />
+        <Chip label={tag ? tag : '?'} variant='filled' size='small' />
         <Box
           component='div'
           sx={{
@@ -30,7 +41,9 @@ export const ArticleCard: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          <Typography sx={{ lineHeight: theme.spacing(4) }}>絵文字</Typography>
+          <Typography sx={{ lineHeight: theme.spacing(4) }}>
+            {emoji ? emoji : '😀'}
+          </Typography>
         </Box>
       </Box>
       <Box
@@ -58,7 +71,7 @@ export const ArticleCard: React.FC = () => {
             lineHeight: theme.spacing(2),
           }}
         >
-          タイトル
+          {title}
         </Typography>
       </Box>
       <Box
@@ -72,7 +85,7 @@ export const ArticleCard: React.FC = () => {
         }}
       >
         <Typography variant='overline' fontSize={theme.spacing(0.5)}>
-          最終更新日時
+          {lastEdittedAt}
         </Typography>
         <Typography variant='overline' fontSize={theme.spacing(0.5)}>
           いいね

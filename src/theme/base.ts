@@ -15,22 +15,4 @@ export const baseTheme = createTheme({
     fontWeightMedium: 500,
     fontWeightRegular: 400,
   },
-
-  components: {
-    //`MuiCssBaseline`になっているが`CssBaseLine`ても同様に作用した
-    MuiCssBaseline: {
-      styleOverrides: `
-        ::-webkit-scrollbar{
-            width: 10px;
-        },
-        ::-webkit-scrollbar-thumb {
-            background-color: #FFAF03;
-            border-radius: 6px;
-        },
-        ::-webkit-scrollbar-corner {
-          display: none;
-        }
-        `,
-    },
-  },
 })
