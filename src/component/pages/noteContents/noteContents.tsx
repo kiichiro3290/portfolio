@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Box, Container } from '@mui/material'
+import { Box, Chip, Container, Paper, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
@@ -37,19 +37,47 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
       <Box
         component='div'
         sx={{
-          height: { md: theme.spacing(42), sm: theme.spacing(24) },
+          height: { md: theme.spacing(12), sm: theme.spacing(6) },
           backgroundColor: theme.palette.background.paper,
         }}
       ></Box>
       <Container maxWidth='md' sx={{ pt: theme.spacing(8) }}>
-        {blocks &&
-          blocks.map((block, id) => {
-            return (
-              <Box key={`${id}${block.content}`} component='div'>
-                {block.content}
-              </Box>
-            )
-          })}
+        <Typography
+          variant='h4'
+          component='h1'
+          sx={{ textAlign: 'center', mb: theme.spacing(2) }}
+        >
+          😃
+        </Typography>
+        <Typography
+          variant='h4'
+          component='h1'
+          sx={{ textAlign: 'center', mb: theme.spacing(8) }}
+        >
+          タイトル
+        </Typography>
+        <Paper
+          sx={{
+            p: theme.spacing(4),
+            borderRadius: theme.spacing(1),
+            display: 'flex',
+            flexDirection: 'column',
+            gap: theme.spacing(4),
+          }}
+        >
+          <Box>
+            <Chip label='tech' />
+          </Box>
+
+          {blocks &&
+            blocks.map((block, id) => {
+              return (
+                <Box key={`${id}${block.content}`} component='div'>
+                  {block.content}
+                </Box>
+              )
+            })}
+        </Paper>
       </Container>
     </Box>
   )
