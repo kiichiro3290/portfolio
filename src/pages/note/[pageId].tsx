@@ -5,9 +5,9 @@ import { getBaseLayout } from '~/component/layout/base'
 
 import { store } from '~/store'
 import { NextPageWithLayout } from '~/types/next'
-import { ArticlePage } from '~/component/pages/article/article'
+import { NoteContentsPage } from '~/component/pages/noteContents/noteContents'
 
-const Article: NextPageWithLayout = () => {
+const NoteContents: NextPageWithLayout = () => {
   return (
     <Provider store={store}>
       <Head>
@@ -15,11 +15,11 @@ const Article: NextPageWithLayout = () => {
         <meta content='Article' name='Article' />
         <link href='/images/nine-dots.svg' rel='icon' />
       </Head>
-      <ArticlePage />
+      <NoteContentsPage />
     </Provider>
   )
 }
 
-Article.getLayout = getBaseLayout
+NoteContents.getLayout = getBaseLayout
 
-export default Article
+export default NoteContents

@@ -5,9 +5,9 @@ import { getBaseLayout } from '~/component/layout/base'
 
 import { store } from '~/store'
 import { NextPageWithLayout } from '~/types/next'
-import { NotePage } from '~/component/pages/note/note'
+import { NoteListPage } from '~/component/pages/noteList/noteList'
 
-const Note: NextPageWithLayout = () => {
+const NoteList: NextPageWithLayout = () => {
   return (
     <Provider store={store}>
       <Head>
@@ -15,11 +15,11 @@ const Note: NextPageWithLayout = () => {
         <meta content='Note' name='Note' />
         <link href='/images/nine-dots.svg' rel='icon' />
       </Head>
-      <NotePage />
+      <NoteListPage />
     </Provider>
   )
 }
 
-Note.getLayout = getBaseLayout
+NoteList.getLayout = getBaseLayout
 
-export default Note
+export default NoteList

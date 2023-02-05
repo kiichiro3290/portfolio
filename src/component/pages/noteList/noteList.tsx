@@ -5,7 +5,6 @@ import { selectTheme } from '~/store/theme'
 import { ArticleCard } from './parts/ArticleCard'
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import { notionApi } from '~/api/client/notion'
-import Link from 'next/link'
 
 type PageObjectSerialized = {
   id: string
@@ -14,7 +13,7 @@ type PageObjectSerialized = {
   emoji: string
   tag: string
 }
-export const NotePage: React.FC = () => {
+export const NoteListPage: React.FC = () => {
   const theme = useSelector(selectTheme)
   const [pages, setPages] = useState<PageObjectSerialized[]>()
 

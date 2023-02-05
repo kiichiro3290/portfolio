@@ -12,7 +12,7 @@ type PageObjectSerialized = {
   emoji: string
   tag: string
 }
-export const ArticlePage: React.FC = () => {
+export const NoteContentsPage: React.FC = () => {
   const theme = useSelector(selectTheme)
   const [blocks, setBlocks] = useState<PageObjectSerialized[]>()
 
