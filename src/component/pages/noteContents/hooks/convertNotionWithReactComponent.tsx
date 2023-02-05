@@ -19,7 +19,7 @@ const CodeBlock: CodeComponent = ({ children, className, inline }) => {
   const lang = match && match[1] ? match[1] : ''
   console.log(match)
   return (
-    <SyntaxHighlighter language={'js'} style={a11yDark}>
+    <SyntaxHighlighter language={lang} style={a11yDark}>
       {String(children).replace(/\n$/, '')}
     </SyntaxHighlighter>
   )
