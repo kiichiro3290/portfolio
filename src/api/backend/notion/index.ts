@@ -1,6 +1,10 @@
 import { Client } from '@notionhq/client'
-import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import {
+  BlockObjectResponse,
+  PageObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints'
 import { parseNotionBlocksData } from '~/api/backend/utils/parseNotionBlocksData'
+import { parseNotionPagesData } from '../utils/parseNotionPagesData'
 
 const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_KEY })
 
@@ -51,9 +55,8 @@ export const addPageNotionDb = async (text: string): Promise<string> => {
 // NotionからDB内の全ページを取得
 export const getNotionPagesData = async (databaseId: string) => {
   const res = await notion.databases.query({ database_id: databaseId })
-
-  // todo: zodを用いたvalidation
-  return res
+  const result = await parseNotionPagesData(res.results as PageObjectResponse[])
+  return result
 }
 
 // NotionからPage内の全ブロックを取得

@@ -1,5 +1,5 @@
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
-import { PageObjectSerialized } from '../noteList'
+import { PageObjectSerialized } from '../../../component/pages/noteList/noteList'
 
 // NotionAPIを叩いた後にParserが必要
 export const parseNotionPagesData = (
