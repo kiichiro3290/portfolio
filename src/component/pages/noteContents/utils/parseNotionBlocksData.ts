@@ -47,10 +47,10 @@ export const parseNotionBlocksData = (
       // コードはキャプションとかプログラミング言語の情報を持っている
       const language = row[type].language
       const caption = row[type].caption[0] ?? ''
-      const div = '```'
-      const content = `${div}${language} ${
+      const divider = '```'
+      const content = `${divider}${language} \n${
         (row[type].rich_text[0] as any).plain_text
-      }${div}`
+      }\n${divider}`
 
       return {
         type,

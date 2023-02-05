@@ -4,6 +4,26 @@ import { BlockType } from '../types/notionBlocks'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
+import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'
+import { CodeComponent } from 'react-markdown/lib/ast-to-react'
+
+// シンタックスハイライトのCSSテンプレートがいくつか定義されている→その中で一番かっこいいのがa11yDark
+import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+
+// eslint-disable-next-line react/prop-types
+const CodeBlock: CodeComponent = ({ children, className, inline }) => {
+  if (inline) {
+    return <code className={className}>{children}</code>
+  }
+  const match = /language-(\w+)/.exec(className || '')
+  const lang = match && match[1] ? match[1] : ''
+  console.log(match)
+  return (
+    <SyntaxHighlighter language={'js'} style={a11yDark}>
+      {String(children).replace(/\n$/, '')}
+    </SyntaxHighlighter>
+  )
+}
 
 export const useConvertNotionWithReactComponent = () => {
   const theme = useSelector(selectTheme)
@@ -110,17 +130,18 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'code': {
         const res = (
-          <Box
-            component='div'
-            sx={{
-              backgroundColor: 'rgb(26, 32, 39)',
-              p: theme.spacing(2),
-              borderRadius: theme.spacing(1),
-              color: theme.palette.text.secondary,
-            }}
-          >
-            <ReactMarkdown>{content}</ReactMarkdown>
-          </Box>
+          //   <Box
+          //     component='div'
+          //     sx={{
+          //       backgroundColor: 'rgb(26, 32, 39)',
+          //       p: theme.spacing(2),
+          //       borderRadius: theme.spacing(1),
+          //       color: theme.palette.text.secondary,
+          //     }}
+          //   >
+          <ReactMarkdown className='' components={{ code: CodeBlock }}>
+            {content}
+          </ReactMarkdown>
         )
         return res
       }
