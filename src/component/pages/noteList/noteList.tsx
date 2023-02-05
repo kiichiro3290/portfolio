@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Box, Container, Grid } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
