@@ -6,6 +6,7 @@ import { GetLayout } from '~/types/next'
 import { Provider, useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, store } from '~/store'
 import { selectTheme, setMode } from '~/store/theme'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 type BaseLayoutProps = {
   children: ReactNode
@@ -16,9 +17,13 @@ export const getBaseLayout: GetLayout = (page) => (
 )
 
 const BaseLayout: FC<BaseLayoutProps> = (props) => {
+  const queryClient = new QueryClient()
+
   return (
     <Provider store={store}>
-      <Layout {...props} />
+      <QueryClientProvider client={queryClient}>
+        <Layout {...props} />
+      </QueryClientProvider>
     </Provider>
   )
 }
