@@ -1,10 +1,11 @@
-import React, { Fragment, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Box, Container, Grid } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { ArticleCard } from './parts/ArticleCard'
 import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import { notionApi } from '~/api/client/notion'
+import Link from 'next/link'
 
 type PageObjectSerialized = {
   id: string
@@ -81,6 +82,7 @@ export const NotePage: React.FC = () => {
                   sx={{ display: 'flex', justifyContent: 'center' }}
                 >
                   <ArticleCard
+                    id={page.id}
                     lastEdittedAt={page.lastEdittedAt}
                     title={page.title}
                     emoji={page.emoji}
