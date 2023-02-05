@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import { Box, Typography, Divider, Alert, Link } from '@mui/material'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'
@@ -31,7 +31,6 @@ export const useConvertNotionWithReactComponent = () => {
     content: string,
     children: BlocksObjectSerialized[]
   ) => {
-    console.log(type, content, children)
     switch (type) {
       case 'heading_1': {
         const res = (
@@ -79,6 +78,16 @@ export const useConvertNotionWithReactComponent = () => {
         const res = (
           <ol>
             <li>{content}</li>
+            {children &&
+              children.map((item, id) => (
+                <Fragment key={id}>
+                  {convertNotionWithReactComponent(
+                    item.type,
+                    item.content ?? '',
+                    item.children ?? []
+                  )}
+                </Fragment>
+              ))}
           </ol>
         )
         return res
@@ -87,6 +96,16 @@ export const useConvertNotionWithReactComponent = () => {
         const res = (
           <ul>
             <li>{content}</li>
+            {children &&
+              children.map((item, id) => (
+                <Fragment key={id}>
+                  {convertNotionWithReactComponent(
+                    item.type,
+                    item.content ?? '',
+                    item.children ?? []
+                  )}
+                </Fragment>
+              ))}
           </ul>
         )
         return res

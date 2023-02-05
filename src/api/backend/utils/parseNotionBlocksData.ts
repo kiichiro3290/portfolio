@@ -11,8 +11,8 @@ export const parseNotionBlocksData = async (
   data: Array<BlockObjectResponse>
 ): Promise<BlocksObjectSerialized[]> => {
   // 型の付け方が悪いから変なparseが必要
-  const parseAsync = async () =>
-    data.map((row) => {
+  const res = await Promise.all(
+    data.map(async (row) => {
       const type = row.type
       const decorationBlockList = ['divider']
       const tableBlock = 'table'
@@ -41,23 +41,14 @@ export const parseNotionBlocksData = async (
         if (row.has_children) {
           // ネストされた要素を全取得する
           const blockId = row.id
-          const data = getNotionBlocksData(blockId).then((data) => {
-            parseNotionBlocksData(data.results as BlockObjectResponse[]).then(
-              (data) => {
-                console.log(data)
-                return {
-                  type,
-                  content,
-                  children: data,
-                }
-              }
-            )
-          })
-
-          console.log(data)
+          const res = await getNotionBlocksData(blockId)
+          const children = await parseNotionBlocksData(
+            res.results as BlockObjectResponse[]
+          )
           return {
             type,
             content,
+            children,
           }
         }
 
@@ -104,8 +95,7 @@ export const parseNotionBlocksData = async (
         type,
       }
     })
-
-  const res = await parseAsync()
+  )
 
   return res
 }
