@@ -1,8 +1,13 @@
 import React from 'react'
 import { Box, Typography, Divider, Alert, Link } from '@mui/material'
 import { BlockType } from '../types/notionBlocks'
+import { useSelector } from 'react-redux'
+import { selectTheme } from '~/store/theme'
+import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 export const useConvertNotionWithReactComponent = () => {
+  const theme = useSelector(selectTheme)
+
   const convertNotionWithReactComponent = (
     type: BlockType,
     content: string
@@ -105,11 +110,17 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'code': {
         const res = (
-          <Alert severity='info'>
-            <Typography component='p' variant='body1'>
-              {content}
-            </Typography>
-          </Alert>
+          <Box
+            component='div'
+            sx={{
+              backgroundColor: 'rgb(26, 32, 39)',
+              p: theme.spacing(2),
+              borderRadius: theme.spacing(1),
+              color: theme.palette.text.secondary,
+            }}
+          >
+            <ReactMarkdown>{content}</ReactMarkdown>
+          </Box>
         )
         return res
       }
