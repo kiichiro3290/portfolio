@@ -30,8 +30,7 @@ export const TopPage: React.FC = () => {
         maxWidth='sm'
         sx={{
           py: {
-            md: theme.spacing(24),
-            sx: theme.spacing(12),
+            xs: theme.spacing(24),
           },
           alignItems: 'center',
           display: 'flex',
