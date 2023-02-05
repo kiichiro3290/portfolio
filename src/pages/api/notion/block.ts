@@ -1,5 +1,5 @@
 import { NextApiRequest, NextApiResponse } from 'next'
-import { getNotionBlocksData } from '~/api/backend/notion'
+import { getNotionBlocksDataInPage } from '~/api/backend/notion'
 import { createApiResponse } from '~/utils/response'
 
 import { schemaForType } from '~/utils/zod'
@@ -24,7 +24,7 @@ export default async function notionBlockApiHandler(
     }
     const { pageId } = query.data
     try {
-      const blocks = await getNotionBlocksData(pageId)
+      const blocks = await getNotionBlocksDataInPage(pageId)
       return createApiResponse(res).success(blocks)
     } catch (err) {
       return createApiResponse(res).internalServerError(`${err}`)

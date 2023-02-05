@@ -1,4 +1,6 @@
 import { Client } from '@notionhq/client'
+import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import { parseNotionBlocksData } from '~/api/backend/utils/parseNotionBlocksData'
 
 const notion = new Client({ auth: process.env.NEXT_PUBLIC_NOTION_KEY })
 
@@ -55,9 +57,15 @@ export const getNotionPagesData = async (databaseId: string) => {
 }
 
 // NotionからPage内の全ブロックを取得
-export const getNotionBlocksData = async (pageId: string) => {
-  const res = await notion.blocks.children.list({ block_id: pageId })
+export const getNotionBlocksDataInPage = async (pageId: string) => {
+  const res = await getNotionBlocksData(pageId)
+  const result = await parseNotionBlocksData(
+    res.results as BlockObjectResponse[]
+  )
+  return result
+}
 
-  // todo: zodを用いたvalidation
+export const getNotionBlocksData = async (blockId: string) => {
+  const res = await notion.blocks.children.list({ block_id: blockId })
   return res
 }

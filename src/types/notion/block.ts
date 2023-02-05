@@ -25,4 +25,5 @@ export type BlockType = TextBlock | DecorationBlock | ListItemBlock
 export type BlocksObjectSerialized = {
   type: BlockType
   content?: string
+  children?: BlocksObjectSerialized[]
 }

@@ -2,9 +2,7 @@ import React from 'react'
 import { Box, Chip, Container, Paper, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
-import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import { notionApi } from '~/api/client/notion'
-import { parseNotionBlocksData } from './utils/parseNotionBlocksData'
 import { useConvertNotionWithReactComponent } from './hooks/convertNotionWithReactComponent'
 import { useQuery } from '@tanstack/react-query'
 
@@ -61,16 +59,14 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
           <Box>
             <Chip label='tech' />
           </Box>
-
           {data &&
-            parseNotionBlocksData(
-              data.results as Array<BlockObjectResponse>
-            ).map((block, id) => {
+            data.map((block, id) => {
               return (
                 <Box key={`${id}${block.content}`} component='div'>
                   {convertNotionWithReactComponent(
                     block.type,
-                    block.content ?? ''
+                    block.content ?? '',
+                    block.children ?? []
                   )}
                 </Box>
               )

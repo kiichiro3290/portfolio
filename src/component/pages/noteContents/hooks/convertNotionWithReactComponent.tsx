@@ -1,14 +1,12 @@
 import React from 'react'
 import { Box, Typography, Divider, Alert, Link } from '@mui/material'
-import { BlockType } from '../types/notionBlocks'
-import { useSelector } from 'react-redux'
-import { selectTheme } from '~/store/theme'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'
 import { CodeComponent, CodeProps } from 'react-markdown/lib/ast-to-react'
 
 // シンタックスハイライトのCSSテンプレートがいくつか定義されている→その中で一番かっこいいのがa11yDark
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
+import { BlockType, BlocksObjectSerialized } from '~/types/notion/block'
 
 const CodeBlock: CodeComponent = ({
   children,
@@ -20,7 +18,6 @@ const CodeBlock: CodeComponent = ({
   }
   const match = /language-(\w+)/.exec(className || '')
   const lang = match && match[1] ? match[1] : ''
-  console.log(match)
   return (
     <SyntaxHighlighter language={lang} style={a11yDark}>
       {String(children).replace(/\n$/, '')}
@@ -29,12 +26,12 @@ const CodeBlock: CodeComponent = ({
 }
 
 export const useConvertNotionWithReactComponent = () => {
-  const theme = useSelector(selectTheme)
-
   const convertNotionWithReactComponent = (
     type: BlockType,
-    content: string
+    content: string,
+    children: BlocksObjectSerialized[]
   ) => {
+    console.log(type, content, children)
     switch (type) {
       case 'heading_1': {
         const res = (
