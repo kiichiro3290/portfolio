@@ -133,15 +133,6 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'code': {
         const res = (
-          //   <Box
-          //     component='div'
-          //     sx={{
-          //       backgroundColor: 'rgb(26, 32, 39)',
-          //       p: theme.spacing(2),
-          //       borderRadius: theme.spacing(1),
-          //       color: theme.palette.text.secondary,
-          //     }}
-          //   >
           <ReactMarkdown className='' components={{ code: CodeBlock }}>
             {content}
           </ReactMarkdown>
