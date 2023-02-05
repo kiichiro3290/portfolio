@@ -6,8 +6,12 @@ import { getBaseLayout } from '~/component/layout/base'
 import { store } from '~/store'
 import { NextPageWithLayout } from '~/types/next'
 import { NoteContentsPage } from '~/component/pages/noteContents/noteContents'
+import { useRouter } from 'next/router'
 
 const NoteContents: NextPageWithLayout = () => {
+  const router = useRouter()
+  const { pageId } = router.query
+
   return (
     <Provider store={store}>
       <Head>
@@ -15,7 +19,7 @@ const NoteContents: NextPageWithLayout = () => {
         <meta content='Article' name='Article' />
         <link href='/images/nine-dots.svg' rel='icon' />
       </Head>
-      <NoteContentsPage />
+      <NoteContentsPage pageId={pageId as string} />
     </Provider>
   )
 }

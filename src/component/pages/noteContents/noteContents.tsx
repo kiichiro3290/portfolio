@@ -2,60 +2,64 @@ import React, { useEffect, useState } from 'react'
 import { Box, Container, Grid } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
-import { PageObjectResponse } from '@notionhq/client/build/src/api-endpoints'
+import {
+  BlockObjectResponse,
+  PartialBlockObjectResponse,
+} from '@notionhq/client/build/src/api-endpoints'
 import { notionApi } from '~/api/client/notion'
 
-type PageObjectSerialized = {
+type BlocksObjectSerialized = {
   id: string
   lastEdittedAt: string
   title: string
   emoji: string
   tag: string
 }
-export const NoteContentsPage: React.FC = () => {
+
+type NoteContentsPageProps = {
+  pageId: string
+}
+
+export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
+  pageId,
+}) => {
   const theme = useSelector(selectTheme)
-  const [blocks, setBlocks] = useState<PageObjectSerialized[]>()
+  const [blocks, setBlocks] = useState<BlocksObjectSerialized[]>()
 
   // NotionAPIを叩いた後にParserが必要
-  const parseNotionPagesData = (
-    data: PageObjectResponse[]
-  ): PageObjectSerialized[] => {
+  const parseNotionBlocksData = (
+    data: Array<PartialBlockObjectResponse | BlockObjectResponse>
+  ): BlocksObjectSerialized[] => {
     // 型の付け方が悪いから変なparseが必要
     const res = data.map((row) => {
-      const titleType = row.properties['Name'].type
-      const title = (row.properties['Name'] as any)[titleType][0]
-        ? ((row.properties['Name'] as any)[titleType][0].plain_text as string)
-        : ''
-      const iconType = row.icon?.type ?? ''
-      const emoji = iconType ? (row.icon as any)[iconType] : ''
-      const tagType = row.properties['Tags'].type
-      const tag = (row.properties['Tags'] as any)[tagType][0]
-        ? ((row.properties['Tags'] as any)[tagType][0].name as string)
-        : ''
-      return {
-        id: row.id,
-        lastEdittedAt: row.last_edited_time,
-        title: title,
-        emoji: emoji,
-        tag: tag,
-      }
+      return row
     })
 
-    return res
+    return [
+      {
+        id: '',
+        lastEdittedAt: '',
+        title: '',
+        emoji: '',
+        tag: '',
+      },
+    ]
   }
 
   // データベース内のページを取得
   useEffect(() => {
+    if (!pageId) return
+
     const f = async () => {
-      const databaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID ?? ''
-      const res = await notionApi.getPages({ databaseId })
-      const parsedRes = parseNotionPagesData(
-        res.results as PageObjectResponse[]
+      const res = await notionApi.getBlocks({ pageId })
+      // console.log(res)
+      const parsedRes = parseNotionBlocksData(
+        res.results as Array<PartialBlockObjectResponse | BlockObjectResponse>
       )
       setBlocks(parsedRes)
     }
     f()
-  }, [])
+  }, [pageId])
 
   return (
     <Box component='div' width='100vw' height='100vh'>
