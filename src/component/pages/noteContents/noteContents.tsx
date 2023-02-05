@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Box, Chip, Container, Paper, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import { notionApi } from '~/api/client/notion'
 import { parseNotionBlocksData } from './utils/parseNotionBlocksData'
-import { BlocksObjectSerialized } from './types/notionBlocks'
 import { useConvertNotionWithReactComponent } from './hooks/convertNotionWithReactComponent'
+import { useQuery } from '@tanstack/react-query'
 
 type NoteContentsPageProps = {
   pageId: string
@@ -16,24 +16,14 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
   pageId,
 }) => {
   const theme = useSelector(selectTheme)
-  const [blocks, setBlocks] = useState<BlocksObjectSerialized[]>()
+
+  const { data } = useQuery({
+    queryKey: ['pages'],
+    queryFn: () => notionApi.getBlocks({ pageId }),
+  })
+
   const { convertNotionWithReactComponent } =
     useConvertNotionWithReactComponent()
-
-  // データベース内のページを取得
-  useEffect(() => {
-    if (!pageId) return
-
-    const f = async () => {
-      const res = await notionApi.getBlocks({ pageId })
-      console.log(res)
-      const parsedRes = parseNotionBlocksData(
-        res.results as Array<BlockObjectResponse>
-      )
-      setBlocks(parsedRes)
-    }
-    f()
-  }, [pageId])
 
   return (
     <Box component='div' width='100vw' height='100vh'>
@@ -72,8 +62,10 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
             <Chip label='tech' />
           </Box>
 
-          {blocks &&
-            blocks.map((block, id) => {
+          {data &&
+            parseNotionBlocksData(
+              data.results as Array<BlockObjectResponse>
+            ).map((block, id) => {
               return (
                 <Box key={`${id}${block.content}`} component='div'>
                   {convertNotionWithReactComponent(
