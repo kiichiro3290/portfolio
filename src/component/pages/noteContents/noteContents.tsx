@@ -5,10 +5,26 @@ import { selectTheme } from '~/store/theme'
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints'
 import { notionApi } from '~/api/client/notion'
 import { parseNotionBlocksData } from './utils/parseNotionBlocksData'
-import { BlocksObjectSerialized } from './types/notionBlocks'
+import { BlocksObjectSerialized, BlockType } from './types/notionBlocks'
 
 type NoteContentsPageProps = {
   pageId: string
+}
+
+const convertNotionWithReactComponent = (type: BlockType, content: string) => {
+  switch (type) {
+    case 'heading_1': {
+      const res = (
+        <Typography variant='h5' component='h2'>
+          {content}
+        </Typography>
+      )
+      return res
+    }
+    case 'heading_2':
+      break
+    case 'heading_3':
+  }
 }
 
 export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
@@ -73,7 +89,7 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
             blocks.map((block, id) => {
               return (
                 <Box key={`${id}${block.content}`} component='div'>
-                  {block.content}
+                  {convertNotionWithReactComponent(block.type, block.content)}
                 </Box>
               )
             })}
