@@ -5,13 +5,16 @@ import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'
-import { CodeComponent } from 'react-markdown/lib/ast-to-react'
+import { CodeComponent, CodeProps } from 'react-markdown/lib/ast-to-react'
 
 // シンタックスハイライトのCSSテンプレートがいくつか定義されている→その中で一番かっこいいのがa11yDark
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 
-// eslint-disable-next-line react/prop-types
-const CodeBlock: CodeComponent = ({ children, className, inline }) => {
+const CodeBlock: CodeComponent = ({
+  children,
+  className,
+  inline,
+}: CodeProps) => {
   if (inline) {
     return <code className={className}>{children}</code>
   }
