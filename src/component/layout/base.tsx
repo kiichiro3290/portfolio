@@ -7,6 +7,7 @@ import { Provider, useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, store } from '~/store'
 import { selectTheme, setMode } from '~/store/theme'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Header } from './parts/Header'
 
 type BaseLayoutProps = {
   children: ReactNode
@@ -41,6 +42,7 @@ const Layout: FC<BaseLayoutProps> = ({ children }) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
+      <Header />
       <Fragment>{children}</Fragment>
     </ThemeProvider>
   )
