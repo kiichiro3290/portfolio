@@ -12,7 +12,7 @@ export const Header: React.FC = () => {
       component='div'
       sx={{
         width: '100%',
-        position: 'fixed',
+        position: 'absolute',
         display: 'flex',
         flexDirection: 'column',
         gap: theme.spacing(2),
