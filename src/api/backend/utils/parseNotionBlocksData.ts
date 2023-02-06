@@ -5,6 +5,8 @@ import {
   listItemBlockList,
 } from '~/types/notion/block'
 import { getNotionBlocksData } from '../notion'
+import { OgpData } from '~/types/ogp'
+import { fetchOgpData } from './fetchOgpData'
 
 // NotionAPIを叩いた後にParserが必要
 export const parseNotionBlocksData = async (
@@ -114,11 +116,13 @@ export const parseNotionBlocksData = async (
       }
 
       if (bookmarkBlock == type) {
-        const content = row[type].url
+        const url = row[type].url
+        // ogpデータを取ってくる処理
+        const res: OgpData = await fetchOgpData(url)
 
         return {
           type,
-          content,
+          ogp: res,
         }
       }
 

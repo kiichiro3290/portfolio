@@ -3,5 +3,5 @@ export type OgpData = {
   title: string // ページタイトル
   description: string // ページの説明
   faviconUrl: string // ファビコンのURL
-  ogImgUrl: string // OGP画像のURL
+  ogpImgUrl: string // OGP画像のURL
 }

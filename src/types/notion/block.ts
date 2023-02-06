@@ -1,3 +1,5 @@
+import { OgpData } from '../ogp'
+
 export const textBlockList = [
   'heading_1',
   'heading_2',
@@ -26,4 +28,5 @@ export type BlocksObjectSerialized = {
   type: BlockType
   content?: string
   children?: BlocksObjectSerialized[]
+  ogp?: OgpData
 }
