@@ -1,9 +1,9 @@
 import React from 'react'
 import { Box } from '@mui/material'
-import { ApplicationBar } from '~/component/pages/top/parts/ApplicationBar'
-import { BookMarkBar } from '~/component/pages/top/parts/BookMarkBar'
+import { ApplicationBar } from '~/component/layout/parts/ApplicationBar'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
+import { BookMarkBar } from './BookMarkBar'
 
 export const Header: React.FC = () => {
   const theme = useSelector(selectTheme)
