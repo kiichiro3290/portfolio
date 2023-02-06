@@ -63,11 +63,15 @@ export const parseNotionBlocksData = async (
       if (codeBlock == type) {
         // コードはキャプションとかプログラミング言語の情報を持っている
         const language = row[type].language
-        const caption = row[type].caption[0] ?? ''
+        const caption = row[type].caption[0]
+          ? row[type].caption[0].plain_text
+          : ''
+
         const divider = '```'
-        const content = `${divider}${language} \n${
+
+        const content = `${divider}${language}:${caption} \n${
           (row[type].rich_text[0] as any).plain_text
-        }\n${divider}`
+        } \n${divider}`
 
         return {
           type,

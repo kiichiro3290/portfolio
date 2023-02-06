@@ -12,6 +12,29 @@ import { useSelector } from 'react-redux'
 import Image from 'next/image'
 import { Container } from '@mui/system'
 
+type CodeBlockTitleProps = {
+  fileName: string
+}
+const CodeBlockTitle: React.FC<CodeBlockTitleProps> = ({ fileName }) => {
+  const theme = useSelector(selectTheme)
+  return (
+    <Box
+      component='div'
+      sx={{
+        display: 'inline-block',
+        position: 'absolute',
+        top: `-${theme.spacing(4)}`,
+        left: 0,
+        padding: theme.spacing(0.7),
+        color: 'white',
+        backgroundColor: 'CaptionText',
+        borderRadius: `${theme.spacing(0.8)} ${theme.spacing(0.8)} 0 0`,
+      }}
+    >
+      {fileName}
+    </Box>
+  )
+}
 const CodeBlock: CodeComponent = ({
   children,
   className,
@@ -20,12 +43,16 @@ const CodeBlock: CodeComponent = ({
   if (inline) {
     return <code className={className}>{children}</code>
   }
-  const match = /language-(\w+)/.exec(className || '')
+  const match = /language-(\w+)(:.+)/.exec(className || '')
   const lang = match && match[1] ? match[1] : ''
+  const name = match && match[2] ? match[2].slice(1) : ''
   return (
-    <SyntaxHighlighter language={lang} style={a11yDark}>
-      {String(children).replace(/\n$/, '')}
-    </SyntaxHighlighter>
+    <Box sx={{ position: 'relative' }}>
+      {name && <CodeBlockTitle fileName={name} />}
+      <SyntaxHighlighter language={lang} style={a11yDark}>
+        {String(children).replace(/\n$/, '')}
+      </SyntaxHighlighter>
+    </Box>
   )
 }
 
@@ -163,7 +190,7 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'code': {
         const res = (
-          <Box sx={{ my: theme.spacing(4) }}>
+          <Box sx={{ mb: theme.spacing(4), mt: theme.spacing(6) }}>
             <ReactMarkdown className='' components={{ code: CodeBlock }}>
               {content}
             </ReactMarkdown>
