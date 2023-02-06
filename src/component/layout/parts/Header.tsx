@@ -17,6 +17,7 @@ export const Header: React.FC = () => {
         flexDirection: 'column',
         gap: theme.spacing(2),
         top: 0,
+        zIndex: theme.zIndex.appBar,
       }}
     >
       <BookMarkBar />

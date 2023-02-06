@@ -35,7 +35,13 @@ export const NoteListPage: React.FC = () => {
           backgroundColor: theme.palette.background.paper,
           position: 'relative',
         }}
-      ></Box>
+      >
+        <Container maxWidth='md' sx={{ pt: theme.spacing(20) }}>
+          <Typography variant='h3' component='h1'>
+            ドキュメント
+          </Typography>
+        </Container>
+      </Box>
       <Container
         maxWidth='md'
         sx={{ pt: theme.spacing(8), position: 'relative' }}
