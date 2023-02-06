@@ -9,6 +9,8 @@ import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { BlockType, BlocksObjectSerialized } from '~/types/notion/block'
 import { selectTheme } from '~/store/theme'
 import { useSelector } from 'react-redux'
+import Image from 'next/image'
+import { Container } from '@mui/system'
 
 const CodeBlock: CodeComponent = ({
   children,
@@ -179,6 +181,14 @@ export const useConvertNotionWithReactComponent = () => {
       }
       default: {
         return null
+      }
+      case 'image': {
+        const res = (
+          <Container maxWidth='md' sx={{ my: theme.spacing(4) }}>
+            <Image src={content} alt={type} width={800} height={600} />
+          </Container>
+        )
+        return res
       }
     }
   }

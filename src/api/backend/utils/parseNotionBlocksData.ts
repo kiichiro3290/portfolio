@@ -19,6 +19,7 @@ export const parseNotionBlocksData = async (
       const codeBlock = 'code'
       const bookmarkBlock = 'bookmark'
       const tableOfContentsBlock = 'table_of_contents'
+      const imgBlock = 'image'
 
       if (textBlockList.includes(type)) {
         const content = (row as any)[type].rich_text[0]
@@ -71,6 +72,22 @@ export const parseNotionBlocksData = async (
         return {
           type,
           content,
+        }
+      }
+
+      if (imgBlock == type) {
+        const imgType = row[type].type
+        if (imgType == 'external') {
+          return {
+            type,
+          }
+        }
+        if (imgType == 'file') {
+          const url = (row[type] as any)[imgType].url
+          return {
+            type,
+            content: url,
+          }
         }
       }
 
