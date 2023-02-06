@@ -119,6 +119,7 @@ export const parseNotionBlocksData = async (
         const url = row[type].url
         // ogpデータを取ってくる処理
         const res: OgpData = await fetchOgpData(url)
+        console.log(res)
 
         return {
           type,

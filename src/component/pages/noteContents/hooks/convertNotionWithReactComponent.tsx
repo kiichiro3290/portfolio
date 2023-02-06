@@ -1,12 +1,20 @@
 import React, { Fragment } from 'react'
-import { Box, Typography, Divider, Alert, Link } from '@mui/material'
+import {
+  Box,
+  Typography,
+  Divider,
+  Alert,
+  Link,
+  Card,
+  Grid,
+} from '@mui/material'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'
 import { CodeComponent, CodeProps } from 'react-markdown/lib/ast-to-react'
 
 // シンタックスハイライトのCSSテンプレートがいくつか定義されている→その中で一番かっこいいのがa11yDark
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
-import { BlockType, BlocksObjectSerialized } from '~/types/notion/block'
+import { BlocksObjectSerialized } from '~/types/notion/block'
 import { selectTheme } from '~/store/theme'
 import { useSelector } from 'react-redux'
 import Image from 'next/image'
@@ -58,12 +66,9 @@ const CodeBlock: CodeComponent = ({
 
 export const useConvertNotionWithReactComponent = () => {
   const theme = useSelector(selectTheme)
-  const convertNotionWithReactComponent = (
-    type: BlockType,
-    content: string,
-    children: BlocksObjectSerialized[]
-  ) => {
-    switch (type) {
+  const convertNotionWithReactComponent = (block: BlocksObjectSerialized) => {
+    console.log(block)
+    switch (block.type) {
       case 'heading_1': {
         const res = (
           <Box
@@ -76,7 +81,7 @@ export const useConvertNotionWithReactComponent = () => {
             }}
           >
             <Typography variant='h4' component='h2'>
-              {content}
+              {block.content}
             </Typography>
             <Divider />
           </Box>
@@ -90,7 +95,7 @@ export const useConvertNotionWithReactComponent = () => {
             component='h3'
             sx={{ mt: theme.spacing(4), mb: theme.spacing(2) }}
           >
-            {content}
+            {block.content}
           </Typography>
         )
         return res
@@ -102,7 +107,7 @@ export const useConvertNotionWithReactComponent = () => {
             component='h4'
             sx={{ mt: theme.spacing(4), mb: theme.spacing(2) }}
           >
-            {content}
+            {block.content}
           </Typography>
         )
         return res
@@ -110,7 +115,7 @@ export const useConvertNotionWithReactComponent = () => {
       case 'paragraph': {
         const res = (
           <Typography variant='body1' component='p'>
-            {content}
+            {block.content}
           </Typography>
         )
         return res
@@ -118,15 +123,11 @@ export const useConvertNotionWithReactComponent = () => {
       case 'numbered_list_item': {
         const res = (
           <ol>
-            <li>{content}</li>
-            {children &&
-              children.map((item, id) => (
+            <li>{block.content}</li>
+            {block.children &&
+              block.children.map((item, id) => (
                 <Fragment key={id}>
-                  {convertNotionWithReactComponent(
-                    item.type,
-                    item.content ?? '',
-                    item.children ?? []
-                  )}
+                  {convertNotionWithReactComponent(item)}
                 </Fragment>
               ))}
           </ol>
@@ -136,15 +137,11 @@ export const useConvertNotionWithReactComponent = () => {
       case 'bulleted_list_item': {
         const res = (
           <ul>
-            <li>{content}</li>
-            {children &&
-              children.map((item, id) => (
+            <li>{block.content}</li>
+            {block.children &&
+              block.children.map((item, id) => (
                 <Fragment key={id}>
-                  {convertNotionWithReactComponent(
-                    item.type,
-                    item.content ?? '',
-                    item.children ?? []
-                  )}
+                  {convertNotionWithReactComponent(item)}
                 </Fragment>
               ))}
           </ul>
@@ -154,7 +151,7 @@ export const useConvertNotionWithReactComponent = () => {
       case 'to_do': {
         const res = (
           <ul>
-            <li>{content}</li>
+            <li>{block.content}</li>
           </ul>
         )
         return res
@@ -172,7 +169,7 @@ export const useConvertNotionWithReactComponent = () => {
             }}
           >
             <Typography component='p' variant='body1'>
-              {content}
+              {block.content}
             </Typography>
           </Box>
         )
@@ -182,7 +179,7 @@ export const useConvertNotionWithReactComponent = () => {
         const res = (
           <Alert severity='info' sx={{ my: theme.spacing(1) }}>
             <Typography component='p' variant='body1'>
-              {content}
+              {block.content}
             </Typography>
           </Alert>
         )
@@ -192,16 +189,60 @@ export const useConvertNotionWithReactComponent = () => {
         const res = (
           <Box sx={{ mb: theme.spacing(4), mt: theme.spacing(6) }}>
             <ReactMarkdown className='' components={{ code: CodeBlock }}>
-              {content}
+              {block.content ?? ''}
             </ReactMarkdown>
           </Box>
         )
         return res
       }
       case 'bookmark': {
+        const ogp = block.ogp
         const res = (
-          <Link href={content} underline='none'>
-            ブックマーク
+          <Link
+            component='a'
+            href={ogp?.pageUrl}
+            underline='none'
+            target='_blank'
+          >
+            <Card
+              component='div'
+              sx={{
+                height: theme.spacing(12),
+                my: theme.spacing(2),
+                display: 'flex',
+                flexDirection: 'column',
+                borderLeft: 'solid',
+                borderRight: 'solid',
+                borderLeftColor: theme.palette.primary.main,
+                borderRightColor: theme.palette.primary.main,
+                borderLeftWidth: theme.spacing(0.8),
+                borderRightWidth: theme.spacing(0.8),
+                p: theme.spacing(1.5),
+              }}
+            >
+              <Typography
+                sx={{
+                  height: theme.spacing(5),
+                  lineHeight: theme.spacing(5),
+                  textOverflow: 'hidden',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {ogp?.title}
+              </Typography>
+
+              <Typography
+                variant='caption'
+                sx={{
+                  textOverflow: 'hidden',
+                  height: theme.spacing(2),
+                  lineHeight: theme.spacing(2),
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {ogp?.pageUrl}
+              </Typography>
+            </Card>
           </Link>
         )
         return res
@@ -212,7 +253,12 @@ export const useConvertNotionWithReactComponent = () => {
       case 'image': {
         const res = (
           <Container maxWidth='md' sx={{ my: theme.spacing(4) }}>
-            <Image src={content} alt={type} width={800} height={600} />
+            <Image
+              src={block.content ?? ''}
+              alt={block.type}
+              width={800}
+              height={600}
+            />
           </Container>
         )
         return res

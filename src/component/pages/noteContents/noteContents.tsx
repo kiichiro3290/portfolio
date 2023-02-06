@@ -91,11 +91,7 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
                   data.map((block, id) => {
                     return (
                       <Box key={`${id}${block.content}`} component='div'>
-                        {convertNotionWithReactComponent(
-                          block.type,
-                          block.content ?? '',
-                          block.children ?? []
-                        )}
+                        {convertNotionWithReactComponent(block)}
                       </Box>
                     )
                   })}
