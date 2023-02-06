@@ -18,6 +18,7 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
   const { data } = useQuery({
     queryKey: ['pages'],
     queryFn: () => notionApi.getBlocks({ pageId }),
+    enabled: !!pageId, // propsのpageIdが渡されてからfetchする
   })
 
   const { convertNotionWithReactComponent } =
