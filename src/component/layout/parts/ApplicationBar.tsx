@@ -12,7 +12,8 @@ import { useSelector } from 'react-redux'
 import { MenuIcon } from '~/component/parts/MenuIcon/MenuIcon'
 import { selectTheme } from '~/store/theme'
 import { usePopOver } from '../../pages/top/hooks/usePopOver'
-import Image from 'next/image'
+import { useRouter } from 'next/router'
+import { Apps } from '@mui/icons-material'
 
 export const ApplicationBar: React.FC = () => {
   const { account, app } = usePopOver()
@@ -46,7 +47,7 @@ export const ApplicationBar: React.FC = () => {
         画像
       </Typography>
       <IconButton onClick={app.handleClickAppPopOver} size='large'>
-        <Image src='/images/nine-dots.svg' alt='' height='16px' width='16px' />
+        <Apps />
       </IconButton>
       <Popover
         anchorEl={app.anchorAppPopOver}
@@ -92,14 +93,15 @@ export const AccountMenuPopOver: React.FC = () => {
 
 export const ApplicationMenuPopOver: React.FC = () => {
   const theme = useSelector(selectTheme)
+  const router = useRouter()
   return (
-    <Paper sx={{ p: theme.spacing(2) }}>
-      <Grid container>
-        <Grid item>
-          <MenuIcon type='アカウント' />
+    <Paper sx={{ p: theme.spacing(2), width: theme.spacing(38) }}>
+      <Grid container gap={2}>
+        <Grid item xs={4}>
+          <MenuIcon type='アカウント' onClick={() => router.push('/')} />
         </Grid>
-        <Grid item>
-          <MenuIcon type='記事' />
+        <Grid item xs={4}>
+          <MenuIcon type='ドキュメント' onClick={() => router.push('/note')} />
         </Grid>
       </Grid>
     </Paper>

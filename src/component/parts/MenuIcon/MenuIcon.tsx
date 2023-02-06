@@ -1,4 +1,4 @@
-import { NoteOutlined } from '@mui/icons-material'
+import { Description } from '@mui/icons-material'
 import { Typography, IconButton, Avatar } from '@mui/material'
 import React from 'react'
 import { useSelector } from 'react-redux'
@@ -9,15 +9,24 @@ export type MenuIconProps = {
   type: MenuType
 }
 
-export type MenuType = '記事' | 'アカウント'
+export type MenuType = 'アカウント' | 'ドキュメント'
 
 export const MenuIcon: React.FC<MenuIconProps> = ({ onClick, type }) => {
-  const generateIcon = (type: MenuType) => {
+  const generateAvater = (type: MenuType) => {
     switch (type) {
       case 'アカウント':
-        return <Typography>K</Typography>
-      case '記事':
-        return <NoteOutlined />
+        return (
+          <Avatar sx={{ bgcolor: theme.palette.primary.main }}>
+            <Typography>K</Typography>
+          </Avatar>
+        )
+      case 'ドキュメント':
+        // Googleの青のカラーコード
+        return (
+          <Avatar sx={{ bgcolor: '#4285f4' }}>
+            <Description />
+          </Avatar>
+        )
       default:
         return <Typography>K</Typography>
     }
@@ -29,11 +38,14 @@ export const MenuIcon: React.FC<MenuIconProps> = ({ onClick, type }) => {
         display: 'flex',
         flexDirection: 'column',
         gap: theme.spacing(1),
+        borderRadius: theme.spacing(1),
+        width: theme.spacing(10),
       }}
+      size='large'
       onClick={onClick}
     >
-      <Avatar>{generateIcon(type)}</Avatar>
-      <Typography>{type}</Typography>
+      {generateAvater(type)}
+      <Typography variant='subtitle2'>{type}</Typography>
     </IconButton>
   )
 }
