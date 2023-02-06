@@ -18,6 +18,7 @@ export const parseNotionBlocksData = async (
       const tableBlock = 'table'
       const codeBlock = 'code'
       const bookmarkBlock = 'bookmark'
+      const tableOfContentsBlock = 'table_of_contents'
 
       if (textBlockList.includes(type)) {
         const content = (row as any)[type].rich_text[0]
@@ -66,6 +67,15 @@ export const parseNotionBlocksData = async (
         const content = `${divider}${language} \n${
           (row[type].rich_text[0] as any).plain_text
         }\n${divider}`
+
+        return {
+          type,
+          content,
+        }
+      }
+
+      if (tableOfContentsBlock == type) {
+        const content = ''
 
         return {
           type,

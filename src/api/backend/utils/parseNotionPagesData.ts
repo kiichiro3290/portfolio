@@ -19,7 +19,6 @@ export const parseNotionPagesData = (
           (row: any) => row.name
         ) as string[])
       : ['なし']
-    console.log(tag)
     return {
       id: row.id,
       lastEdittedAt: parseDatetimeString(row.last_edited_time),
@@ -33,7 +32,6 @@ export const parseNotionPagesData = (
 }
 
 const parseDatetimeString = (str: string) => {
-  console.log(str)
   const year = str.slice(0, 4)
   const month = str.slice(5, 7)
   const day = str.slice(8, 10)
