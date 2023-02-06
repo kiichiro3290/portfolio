@@ -16,7 +16,7 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
   const theme = useSelector(selectTheme)
 
   const { data } = useQuery({
-    queryKey: ['pages'],
+    queryKey: ['pages', pageId],
     queryFn: () => notionApi.getBlocks({ pageId }),
     enabled: !!pageId, // propsのpageIdが渡されてからfetchする
   })
