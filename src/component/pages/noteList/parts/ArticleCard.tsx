@@ -91,9 +91,9 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           <Typography variant='overline' fontSize={theme.spacing(0.5)}>
             {lastEdittedAt}
           </Typography>
-          <Typography variant='overline' fontSize={theme.spacing(0.5)}>
+          {/* <Typography variant='overline' fontSize={theme.spacing(0.5)}>
             いいね
-          </Typography>
+          </Typography> */}
         </Box>
       </Card>
     </Link>

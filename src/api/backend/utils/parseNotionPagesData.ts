@@ -22,7 +22,7 @@ export const parseNotionPagesData = (
     console.log(tag)
     return {
       id: row.id,
-      lastEdittedAt: row.last_edited_time,
+      lastEdittedAt: parseDatetimeString(row.last_edited_time),
       title: title,
       emoji: emoji,
       tags: tag,
@@ -30,4 +30,16 @@ export const parseNotionPagesData = (
   })
 
   return res
+}
+
+const parseDatetimeString = (str: string) => {
+  console.log(str)
+  const year = str.slice(0, 4)
+  const month = str.slice(5, 7)
+  const day = str.slice(8, 10)
+  const time = str.slice(11, 19)
+  const datetime = new Date(`${year}/${month}/${day} ${time}`)
+  datetime.setHours(datetime.getHours() + 9)
+
+  return datetime.toLocaleString().slice(0, -3)
 }
