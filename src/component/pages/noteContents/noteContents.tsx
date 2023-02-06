@@ -5,13 +5,15 @@ import {
   CircularProgress,
   Container,
   Paper,
-  Typography,
+  Grid,
 } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { notionApi } from '~/api/client/notion'
 import { useConvertNotionWithReactComponent } from './hooks/convertNotionWithReactComponent'
 import { useQuery } from '@tanstack/react-query'
+import { TableOfContents } from './parts/TableOfContents'
+import { TitleWrapper } from './parts/TitleWrapper'
 
 type NoteContentsPageProps = {
   pageId: string
@@ -61,52 +63,49 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
           backgroundColor: theme.palette.background.paper,
         }}
       ></Box>
-      <Container maxWidth='md' sx={{ pt: theme.spacing(8) }}>
-        <Typography
-          variant='h4'
-          component='h1'
-          sx={{ textAlign: 'center', mb: theme.spacing(2) }}
-        >
-          {page?.emoji ? page?.emoji : '😃'}
-        </Typography>
-        <Typography
-          variant='h4'
-          component='h1'
-          sx={{ textAlign: 'center', mb: theme.spacing(8) }}
-        >
-          {page?.title ? page?.title : '無タイトル'}
-        </Typography>
-        <Paper
-          sx={{
-            p: theme.spacing(4),
-            borderRadius: theme.spacing(1),
-            display: 'flex',
-            flexDirection: 'column',
-            gap: theme.spacing(4),
-          }}
-        >
-          <Box component='div' sx={{ display: 'flex', gap: theme.spacing(1) }}>
-            {page &&
-              page.tags &&
-              page.tags.map((row, id) => (
-                <Chip key={id} label={row} color='primary' />
-              ))}
-          </Box>
-          <Box component='div'>
-            {data &&
-              data.map((block, id) => {
-                return (
-                  <Box key={`${id}${block.content}`} component='div'>
-                    {convertNotionWithReactComponent(
-                      block.type,
-                      block.content ?? '',
-                      block.children ?? []
-                    )}
-                  </Box>
-                )
-              })}
-          </Box>
-        </Paper>
+      <Container maxWidth='lg' sx={{ pt: theme.spacing(8) }}>
+        {page && <TitleWrapper page={page} />}
+        <Grid container gap={4}>
+          <Grid item md={8}>
+            <Paper
+              sx={{
+                p: theme.spacing(4),
+                borderRadius: theme.spacing(1),
+                display: 'flex',
+                flexDirection: 'column',
+                gap: theme.spacing(4),
+              }}
+            >
+              <Box
+                component='div'
+                sx={{ display: 'flex', gap: theme.spacing(1) }}
+              >
+                {page &&
+                  page.tags &&
+                  page.tags.map((row, id) => (
+                    <Chip key={id} label={row} color='primary' />
+                  ))}
+              </Box>
+              <Box component='div'>
+                {data &&
+                  data.map((block, id) => {
+                    return (
+                      <Box key={`${id}${block.content}`} component='div'>
+                        {convertNotionWithReactComponent(
+                          block.type,
+                          block.content ?? '',
+                          block.children ?? []
+                        )}
+                      </Box>
+                    )
+                  })}
+              </Box>
+            </Paper>
+          </Grid>
+          <Grid item md={3.6}>
+            <TableOfContents data={data ?? []} />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   )
