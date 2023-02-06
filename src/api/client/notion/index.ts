@@ -3,7 +3,7 @@ import { NotionBlocksGetQueryParams } from '~/pages/api/notion/block'
 import { NotionPagesGetQueryParams } from '~/pages/api/notion/page'
 import { client } from '..'
 import { BlocksObjectSerialized } from '~/types/notion/block'
-import { PageObjectSerialized } from '~/component/pages/noteList/noteList'
+import { PageObjectSerialized } from '~/types/notion/page'
 
 export const notionApi = {
   addPageToDb: async (text: string) => {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Typography } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
-import { PageObjectSerialized } from '../../noteList/noteList'
+import { PageObjectSerialized } from '~/types/notion/page'
 
 type TitleWrapperProps = {
   page: PageObjectSerialized

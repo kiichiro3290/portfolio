@@ -3,9 +3,9 @@ import Head from 'next/head'
 import { Provider } from 'react-redux'
 import { getBaseLayout } from '~/component/layout/base'
 
-import { TopPage } from '~/component/pages/top/top'
 import { store } from '~/store'
 import { NextPageWithLayout } from '~/types/next'
+import { TopPage } from '~/component/pages/top/top'
 
 const Top: NextPageWithLayout = () => {
   return (
