@@ -5,7 +5,7 @@ import { getBaseLayout } from '~/component/layout/base'
 
 import { store } from '~/store'
 import { NextPageWithLayout } from '~/types/next'
-import { NoteListPage } from '~/component/pages/noteList/noteList'
+import { NoteListPage } from '~/component/pages/noteList/NoteList'
 
 const NoteList: NextPageWithLayout = () => {
   return (

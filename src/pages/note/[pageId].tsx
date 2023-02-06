@@ -7,7 +7,7 @@ import { store } from '~/store'
 import { NextPageWithLayout } from '~/types/next'
 
 import { useRouter } from 'next/router'
-import { NoteContentsPage } from '~/component/pages/noteContents/noteContents'
+import { NoteContentsPage } from '~/component/pages/noteContents/NoteContents'
 
 const NoteContents: NextPageWithLayout = () => {
   const router = useRouter()
