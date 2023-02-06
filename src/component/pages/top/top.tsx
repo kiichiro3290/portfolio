@@ -1,10 +1,12 @@
 import React from 'react'
 import Image from 'next/image'
-import { Box } from '@mui/material'
+import { Box, Grid } from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { Container } from '@mui/material'
 import { SearchWindow } from './parts/SearchWindow'
+import router from 'next/router'
+import { MenuIcon } from '~/component/parts/MenuIcon/MenuIcon'
 
 export const TopPage: React.FC = () => {
   const theme = useSelector(selectTheme)
@@ -31,6 +33,14 @@ export const TopPage: React.FC = () => {
           />
         </Box>
         <SearchWindow />
+        <Grid container>
+          <Grid item xs={2}>
+            <MenuIcon
+              type='ドキュメント'
+              onClick={() => router.push('/note')}
+            />
+          </Grid>
+        </Grid>
       </Container>
     </Box>
   )
