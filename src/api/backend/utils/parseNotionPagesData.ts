@@ -12,17 +12,20 @@ export const parseNotionPagesData = (
       ? ((row.properties['Name'] as any)[titleType][0].plain_text as string)
       : ''
     const iconType = row.icon?.type ?? ''
-    const emoji = iconType ? (row.icon as any)[iconType] : ''
+    const emoji = iconType ? ((row.icon as any)[iconType] as string) : ''
     const tagType = row.properties['Tags'].type
     const tag = (row.properties['Tags'] as any)[tagType][0]
-      ? ((row.properties['Tags'] as any)[tagType][0].name as string)
-      : ''
+      ? ((row.properties['Tags'] as any)[tagType].map(
+          (row: any) => row.name
+        ) as string[])
+      : ['なし']
+    console.log(tag)
     return {
       id: row.id,
       lastEdittedAt: row.last_edited_time,
       title: title,
       emoji: emoji,
-      tag: tag,
+      tags: tag,
     }
   })
 

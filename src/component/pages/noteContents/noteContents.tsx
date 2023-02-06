@@ -15,11 +15,18 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
 }) => {
   const theme = useSelector(selectTheme)
 
-  const { data } = useQuery({
+  const contents = useQuery({
     queryKey: ['pages', pageId],
     queryFn: () => notionApi.getBlocks({ pageId }),
     enabled: !!pageId, // propsのpageIdが渡されてからfetchする
-  })
+  }).data
+
+  const databaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID ?? ''
+  const page = useQuery({
+    queryKey: ['pages'],
+    queryFn: () => notionApi.getPages({ databaseId }),
+    enabled: !!databaseId && !!pageId,
+  }).data?.filter((row) => row.id == pageId)[0]
 
   const { convertNotionWithReactComponent } =
     useConvertNotionWithReactComponent()
@@ -39,14 +46,14 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
           component='h1'
           sx={{ textAlign: 'center', mb: theme.spacing(2) }}
         >
-          😃
+          {page?.emoji ? page?.emoji : '😃'}
         </Typography>
         <Typography
           variant='h4'
           component='h1'
           sx={{ textAlign: 'center', mb: theme.spacing(8) }}
         >
-          タイトル
+          {page?.title ? page?.title : '無タイトル'}
         </Typography>
         <Paper
           sx={{
@@ -57,11 +64,15 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
             gap: theme.spacing(4),
           }}
         >
-          <Box>
-            <Chip label='tech' />
+          <Box component='div' sx={{ display: 'flex', gap: theme.spacing(1) }}>
+            {page &&
+              page.tags &&
+              page.tags.map((row, id) => (
+                <Chip key={id} label={row} color='primary' />
+              ))}
           </Box>
-          {data &&
-            data.map((block, id) => {
+          {contents &&
+            contents.map((block, id) => {
               return (
                 <Box key={`${id}${block.content}`} component='div'>
                   {convertNotionWithReactComponent(

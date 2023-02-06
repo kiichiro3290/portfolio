@@ -11,7 +11,7 @@ export type PageObjectSerialized = {
   lastEdittedAt: string
   title: string
   emoji: string
-  tag: string
+  tags: string[]
 }
 export const NoteListPage: React.FC = () => {
   const theme = useSelector(selectTheme)
@@ -48,7 +48,7 @@ export const NoteListPage: React.FC = () => {
                     lastEdittedAt={page.lastEdittedAt}
                     title={page.title}
                     emoji={page.emoji}
-                    tag={page.tag}
+                    tag={page.tags[0]}
                   />
                 </Grid>
               )
