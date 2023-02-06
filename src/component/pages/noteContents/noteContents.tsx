@@ -1,5 +1,12 @@
 import React from 'react'
-import { Box, Chip, Container, Paper, Typography } from '@mui/material'
+import {
+  Box,
+  Chip,
+  CircularProgress,
+  Container,
+  Paper,
+  Typography,
+} from '@mui/material'
 import { useSelector } from 'react-redux'
 import { selectTheme } from '~/store/theme'
 import { notionApi } from '~/api/client/notion'
@@ -15,11 +22,11 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
 }) => {
   const theme = useSelector(selectTheme)
 
-  const contents = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['pages', pageId],
     queryFn: () => notionApi.getBlocks({ pageId }),
     enabled: !!pageId, // propsのpageIdが渡されてからfetchする
-  }).data
+  })
 
   const databaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID ?? ''
   const page = useQuery({
@@ -30,6 +37,20 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
 
   const { convertNotionWithReactComponent } =
     useConvertNotionWithReactComponent()
+
+  if (isLoading)
+    return (
+      <Container
+        maxWidth='md'
+        sx={{
+          position: 'absolute',
+          top: 'calc(50% - 12px)',
+          left: 'calc(50% - 12px)',
+        }}
+      >
+        <CircularProgress />
+      </Container>
+    )
 
   return (
     <Box component='div' width='100vw' height='100vh'>
@@ -71,8 +92,8 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
                 <Chip key={id} label={row} color='primary' />
               ))}
           </Box>
-          {contents &&
-            contents.map((block, id) => {
+          {data &&
+            data.map((block, id) => {
               return (
                 <Box key={`${id}${block.content}`} component='div'>
                   {convertNotionWithReactComponent(
