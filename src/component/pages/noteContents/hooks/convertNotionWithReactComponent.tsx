@@ -7,6 +7,8 @@ import { CodeComponent, CodeProps } from 'react-markdown/lib/ast-to-react'
 // シンタックスハイライトのCSSテンプレートがいくつか定義されている→その中で一番かっこいいのがa11yDark
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import { BlockType, BlocksObjectSerialized } from '~/types/notion/block'
+import { selectTheme } from '~/store/theme'
+import { useSelector } from 'react-redux'
 
 const CodeBlock: CodeComponent = ({
   children,
@@ -26,6 +28,7 @@ const CodeBlock: CodeComponent = ({
 }
 
 export const useConvertNotionWithReactComponent = () => {
+  const theme = useSelector(selectTheme)
   const convertNotionWithReactComponent = (
     type: BlockType,
     content: string,
@@ -40,6 +43,7 @@ export const useConvertNotionWithReactComponent = () => {
               display: 'flex',
               flexDirection: 'column',
               gap: '8px',
+              my: theme.spacing(4),
             }}
           >
             <Typography variant='h4' component='h2'>
@@ -52,7 +56,11 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'heading_2': {
         const res = (
-          <Typography variant='h5' component='h3'>
+          <Typography
+            variant='h5'
+            component='h3'
+            sx={{ mt: theme.spacing(4), mb: theme.spacing(2) }}
+          >
             {content}
           </Typography>
         )
@@ -60,7 +68,11 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'heading_3': {
         const res = (
-          <Typography variant='h6' component='h4'>
+          <Typography
+            variant='h6'
+            component='h4'
+            sx={{ mt: theme.spacing(4), mb: theme.spacing(2) }}
+          >
             {content}
           </Typography>
         )
@@ -139,7 +151,7 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'callout': {
         const res = (
-          <Alert severity='info'>
+          <Alert severity='info' sx={{ my: theme.spacing(1) }}>
             <Typography component='p' variant='body1'>
               {content}
             </Typography>
@@ -149,9 +161,11 @@ export const useConvertNotionWithReactComponent = () => {
       }
       case 'code': {
         const res = (
-          <ReactMarkdown className='' components={{ code: CodeBlock }}>
-            {content}
-          </ReactMarkdown>
+          <Box sx={{ my: theme.spacing(4) }}>
+            <ReactMarkdown className='' components={{ code: CodeBlock }}>
+              {content}
+            </ReactMarkdown>
+          </Box>
         )
         return res
       }

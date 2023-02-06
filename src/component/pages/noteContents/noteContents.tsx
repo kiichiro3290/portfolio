@@ -92,18 +92,20 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
                 <Chip key={id} label={row} color='primary' />
               ))}
           </Box>
-          {data &&
-            data.map((block, id) => {
-              return (
-                <Box key={`${id}${block.content}`} component='div'>
-                  {convertNotionWithReactComponent(
-                    block.type,
-                    block.content ?? '',
-                    block.children ?? []
-                  )}
-                </Box>
-              )
-            })}
+          <Box component='div'>
+            {data &&
+              data.map((block, id) => {
+                return (
+                  <Box key={`${id}${block.content}`} component='div'>
+                    {convertNotionWithReactComponent(
+                      block.type,
+                      block.content ?? '',
+                      block.children ?? []
+                    )}
+                  </Box>
+                )
+              })}
+          </Box>
         </Paper>
       </Container>
     </Box>
