@@ -37,16 +37,16 @@
     "@typescript-eslint/parser": "5.57.1",
     "babel-loader": "9.1.2",
     "eslint": "8.37.0",
-    "eslint-config-next": "13.2.4",
+    "eslint-config-next": "13.3.0",
     "eslint-config-prettier": "8.8.0",
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
     "eslint-plugin-sort": "2.7.1",
     "husky": "8.0.3",
-    "lint-staged": "13.2.0",
+    "lint-staged": "13.2.1",
     "prettier": "2.8.7",
     "sb": "7.0.2",
-    "typescript": "5.0.3"
+    "typescript": "5.0.4"
   }
 }
