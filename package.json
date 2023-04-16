@@ -24,11 +24,11 @@
   },
   "devDependencies": {
     "@babel/core": "7.21.4",
-    "@storybook/addon-actions": "7.0.4",
-    "@storybook/addon-essentials": "7.0.4",
-    "@storybook/addon-interactions": "7.0.4",
-    "@storybook/addon-links": "7.0.4",
-    "@storybook/react": "7.0.4",
+    "@storybook/addon-actions": "7.0.5",
+    "@storybook/addon-essentials": "7.0.5",
+    "@storybook/addon-interactions": "7.0.5",
+    "@storybook/addon-links": "7.0.5",
+    "@storybook/react": "7.0.5",
     "@storybook/testing-library": "0.1.0",
     "@types/node": "18.15.11",
     "@types/react": "18.0.35",
@@ -42,11 +42,11 @@
     "eslint-plugin-import": "2.27.5",
     "eslint-plugin-prettier": "4.2.1",
     "eslint-plugin-react": "7.32.2",
-    "eslint-plugin-sort": "2.7.1",
+    "eslint-plugin-sort": "2.10.0",
     "husky": "8.0.3",
     "lint-staged": "13.2.1",
     "prettier": "2.8.7",
-    "sb": "7.0.4",
+    "sb": "7.0.5",
     "typescript": "5.0.4"
   }
 }
