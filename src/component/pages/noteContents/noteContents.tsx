@@ -63,10 +63,18 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
           backgroundColor: theme.palette.background.paper,
         }}
       ></Box>
-      <Container maxWidth='lg' sx={{ pt: theme.spacing(8) }}>
+      <Container
+        maxWidth='lg'
+        sx={{
+          pt: {
+            md: theme.spacing(8),
+            xs: theme.spacing(12),
+          },
+        }}
+      >
         {page && <TitleWrapper page={page} />}
         <Grid container gap={4}>
-          <Grid item md={8}>
+          <Grid item xs={12} md={7.8} lg={8}>
             <Paper
               sx={{
                 p: theme.spacing(4),
@@ -98,7 +106,7 @@ export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
               </Box>
             </Paper>
           </Grid>
-          <Grid item md={3.6}>
+          <Grid item xs={12} md={3.6} lg={3.6}>
             <TableOfContents data={data ?? []} />
           </Grid>
         </Grid>

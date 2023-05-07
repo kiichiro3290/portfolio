@@ -6,13 +6,6 @@ import { ArticleCard } from './parts/ArticleCard'
 import { notionApi } from '~/api/client/notion'
 import { useQuery } from '@tanstack/react-query'
 
-export type PageObjectSerialized = {
-  id: string
-  lastEdittedAt: string
-  title: string
-  emoji: string
-  tags: string[]
-}
 export const NoteListPage: React.FC = () => {
   const theme = useSelector(selectTheme)
   const [value, setValue] = useState(0)
