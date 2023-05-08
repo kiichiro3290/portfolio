@@ -27,7 +27,10 @@ export const NoteList: React.FC<NoteListProps> = ({ pages }) => {
           position: 'relative',
         }}
       >
-        <Container maxWidth='md' sx={{ pt: theme.spacing(20) }}>
+        <Container
+          maxWidth='md'
+          sx={{ pt: theme.spacing(20), pb: { xs: theme.spacing(8) }, md: 0 }}
+        >
           <Typography variant='h3' component='h1'>
             ドキュメント
           </Typography>
@@ -64,7 +67,7 @@ export const NoteList: React.FC<NoteListProps> = ({ pages }) => {
                   >
                     <ArticleCard
                       id={page.id}
-                      lastEdittedAt={page.lastEditedAt}
+                      lastEditedAt={page.lastEditedAt}
                       title={page.title}
                       emoji={page.emoji}
                       tag={page.tags[0]}

@@ -1,26 +1,25 @@
 'use client'
 
 import React from 'react'
-import { Card, Box, Chip, Typography } from '@mui/material'
-import Link from 'next/link'
+import { Card, Box, Chip, Typography, Link } from '@mui/material'
 import { theme } from '../../../../theme'
 
 export type ArticleCardProps = {
-  lastEdittedAt: string
+  lastEditedAt: string
   title: string
   emoji: string
   tag: string
   id: string
 }
 export const ArticleCard: React.FC<ArticleCardProps> = ({
-  lastEdittedAt,
+  lastEditedAt,
   title,
   emoji,
   tag,
   id,
 }) => {
   return (
-    <Link href={`note/${id}`} passHref>
+    <Link href={`/note/${id}`} sx={{ textDecoration: 'none' }}>
       <Card
         sx={{
           width: '240px',
@@ -88,11 +87,8 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
           }}
         >
           <Typography variant='overline' fontSize={theme.spacing(0.5)}>
-            {lastEdittedAt}
+            {lastEditedAt}
           </Typography>
-          {/* <Typography variant='overline' fontSize={theme.spacing(0.5)}>
-            いいね
-          </Typography> */}
         </Box>
       </Card>
     </Link>
