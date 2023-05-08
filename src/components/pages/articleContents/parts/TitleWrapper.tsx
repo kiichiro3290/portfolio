@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { Container, Typography } from '@mui/material'
 import { PageObjectSerialized } from '../../../../types/notion/page'
 import { theme } from '../../../../theme'

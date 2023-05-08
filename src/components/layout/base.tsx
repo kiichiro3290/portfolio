@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import { ThemeProvider } from '@emotion/react'
 import { CssBaseline } from '@mui/material'
 import { FC, Fragment, ReactNode } from 'react'

@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { Card, Box, Chip, Typography, Link } from '@mui/material'
 import { theme } from '../../../../theme'
 

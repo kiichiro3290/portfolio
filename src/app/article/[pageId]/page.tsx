@@ -1,15 +1,19 @@
-import { useParams } from 'next/navigation'
+import { Fragment } from 'react'
 import { ArticleContentsPage } from '~/components/pages/articleContents/ArticleContents'
 import { ArticleHead } from '../head'
 
-const ArticleContents: React.FC = () => {
-  const params = useParams()
+type ArticleContentsProps = {
+  params: {
+    pageId: string
+  }
+}
 
+const ArticleContents: React.FC<ArticleContentsProps> = ({ params }) => {
   return (
-    <>
+    <Fragment>
       <ArticleHead />
       <ArticleContentsPage pageId={params?.pageId as string} />
-    </>
+    </Fragment>
   )
 }
 

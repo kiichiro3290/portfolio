@@ -15,7 +15,6 @@ export const notionApi = {
         params,
       })
       .then((res) => {
-        console.log(res.data)
         return res.data
       })
 

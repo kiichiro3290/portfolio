@@ -1,6 +1,5 @@
 'use client'
 
-import React from 'react'
 import { Paper, Typography, Box } from '@mui/material'
 import { theme } from '../../../../theme'
 import { BlocksObjectSerialized } from '../../../../types/notion/block'

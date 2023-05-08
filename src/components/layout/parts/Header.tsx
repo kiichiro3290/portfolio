@@ -1,7 +1,5 @@
 'use client'
 
-import React from 'react'
-
 import { Box } from '@mui/material'
 import { BookMarkBar } from './BookMarkBar'
 import { ApplicationBar } from './ApplicationBar'

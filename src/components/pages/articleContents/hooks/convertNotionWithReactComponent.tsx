@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import { Fragment } from 'react'
 import { Box, Typography, Divider, Alert, Link, Card } from '@mui/material'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'

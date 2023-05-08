@@ -1,6 +1,6 @@
 'use client'
 
-import React, { Fragment, SyntheticEvent, useState } from 'react'
+import { Fragment, SyntheticEvent, useState } from 'react'
 import { Box, Container, Grid, Tab, Tabs, Typography } from '@mui/material'
 import { ArticleCard } from './parts/ArticleCard'
 import { theme } from '../../../theme'
