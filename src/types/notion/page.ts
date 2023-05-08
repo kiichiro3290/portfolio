@@ -1,6 +1,6 @@
 export type PageObjectSerialized = {
   id: string
-  lastEdittedAt: string
+  lastEditedAt: string
   title: string
   emoji: string
   tags: string[]
