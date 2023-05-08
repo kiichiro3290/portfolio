@@ -16,11 +16,11 @@ import { TitleWrapper } from './parts/TitleWrapper'
 import { theme } from '../../../theme'
 import { notionApi } from '../../../lib/client/notion'
 
-type NoteContentsPageProps = {
+type ArticleContentsPageProps = {
   pageId: string
 }
 
-export const NoteContentsPage: React.FC<NoteContentsPageProps> = ({
+export const ArticleContentsPage: React.FC<ArticleContentsPageProps> = ({
   pageId,
 }) => {
   const { data, isLoading } = useQuery({

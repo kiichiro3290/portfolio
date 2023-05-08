@@ -19,7 +19,7 @@ export const ArticleCard: React.FC<ArticleCardProps> = ({
   id,
 }) => {
   return (
-    <Link href={`/note/${id}`} sx={{ textDecoration: 'none' }}>
+    <Link href={`/article/${id}`} sx={{ textDecoration: 'none' }}>
       <Card
         sx={{
           width: '240px',

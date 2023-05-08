@@ -6,11 +6,11 @@ import { ArticleCard } from './parts/ArticleCard'
 import { theme } from '../../../theme'
 import { PageObjectSerialized } from '../../../types/notion/page'
 
-type NoteListProps = {
+type ArticleListProps = {
   pages: PageObjectSerialized[]
 }
 
-export const NoteList: React.FC<NoteListProps> = ({ pages }) => {
+export const ArticleList: React.FC<ArticleListProps> = ({ pages }) => {
   const [value, setValue] = useState(0)
 
   const handleChange = (e: SyntheticEvent, newValue: number) => {

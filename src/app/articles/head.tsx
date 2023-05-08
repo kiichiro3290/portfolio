@@ -1,8 +1,8 @@
-export const NoteHead: React.FC = () => {
+export const ArticleHead: React.FC = () => {
   return (
     <>
       <title>記事</title>
-      <meta content='note' name='note' />
+      <meta content='article' name='article' />
       <link href='/images/nine-dots.svg' rel='icon' />
     </>
   )

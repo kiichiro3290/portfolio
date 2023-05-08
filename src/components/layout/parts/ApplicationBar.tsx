@@ -98,7 +98,10 @@ export const ApplicationMenuPopOver: React.FC = () => {
           <MenuIcon type='アカウント' onClick={() => router.push('/')} />
         </Grid>
         <Grid item xs={4}>
-          <MenuIcon type='ドキュメント' onClick={() => router.push('/note')} />
+          <MenuIcon
+            type='ドキュメント'
+            onClick={() => router.push('/article')}
+          />
         </Grid>
       </Grid>
     </Paper>

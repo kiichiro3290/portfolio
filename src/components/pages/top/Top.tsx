@@ -33,7 +33,7 @@ export const TopPage: React.FC = () => {
           <Grid item xs={2}>
             <MenuIcon
               type='ドキュメント'
-              onClick={() => router.push('/note')}
+              onClick={() => router.push('/article')}
             />
           </Grid>
         </Grid>
