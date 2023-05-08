@@ -1,20 +1,15 @@
-'use client'
-
-import { CssBaseline, ThemeProvider } from '@mui/material'
-import React from 'react'
-import { BaseLayout } from './component/layout/base'
+import { BaseLayout } from '../components/layout/base'
 
 type Props = {
   children: React.ReactNode
 }
 
-const RootLayout: React.FC<Props> = ({ children }) => {
+export default function RootLayout({ children }: Props) {
   return (
-    <BaseLayout>
-      <CssBaseline />
-      {children}
-    </BaseLayout>
+    <html lang='ja'>
+      <body>
+        <BaseLayout>{children}</BaseLayout>
+      </body>
+    </html>
   )
 }
-
-export default RootLayout

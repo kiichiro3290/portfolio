@@ -1,17 +1,14 @@
-import React from 'react'
-
-import { useRouter } from 'next/router'
-import { NoteContentsPage } from 'src/app/component/pages/noteContents/NoteContents'
+import { useParams } from 'next/navigation'
 import { NoteHead } from '../head'
+import { NoteContentsPage } from '../../../components/pages/noteContents/NoteContents'
 
 const NoteContents: React.FC = () => {
-  const router = useRouter()
-  const { pageId } = router.query
+  const params = useParams()
 
   return (
     <>
       <NoteHead />
-      <NoteContentsPage pageId={pageId as string} />
+      <NoteContentsPage pageId={params?.pageId as string} />
     </>
   )
 }

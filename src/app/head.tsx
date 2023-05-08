@@ -1,6 +1,4 @@
-import React from 'react'
-
-export const Head: React.FC = () => {
+export default function Head() {
   return (
     <>
       <title>Home</title>

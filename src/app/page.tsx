@@ -1,16 +1,7 @@
 import React from 'react'
-import { TopPage } from 'src/app/component/pages/top/Top'
 
-import { Head } from './head'
-import RootLayout from './layout'
+import { TopPage } from '../components/pages/top/Top'
 
-const Top: React.FC = () => {
-  return (
-    <RootLayout>
-      <Head />
-      <TopPage />
-    </RootLayout>
-  )
+export default function Page() {
+  return <TopPage />
 }
-
-export default Top
