@@ -1,4 +1,4 @@
-import { NextApiResponse } from 'next'
+import { NextResponse } from 'next/server'
 
 export type SuccessStatusCode = 200 | 201
 
@@ -28,56 +28,68 @@ export type ApiResponse<T> = {
   internalServerError: (errorMessage?: string) => void
 }
 
-export const createApiResponse = <T>(
-  res: NextApiResponse<Response<T>>
-): ApiResponse<T> => ({
+export const createApiResponse = <T>(): ApiResponse<T> => ({
   success: (data: T) => {
-    return res.status(200).json({
-      status: 200,
-      data,
-      success: true,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 200,
+        data,
+        success: true,
+      })
+    )
   },
   badRequest: (errorMessage?: string) => {
-    return res.status(400).json({
-      status: 400,
-      errorMessage: errorMessage ?? '400 Bad Request',
-      success: false,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 400,
+        errorMessage: errorMessage ?? '400 Bad Request',
+        success: false,
+      })
+    )
   },
   unauthorized: (errorMessage?: string) => {
-    return res.status(401).json({
-      status: 401,
-      errorMessage: errorMessage ?? '400 Unauthorized',
-      success: false,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 401,
+        errorMessage: errorMessage ?? '400 Unauthorized',
+        success: false,
+      })
+    )
   },
   forbidden: (errorMessage?: string) => {
-    return res.status(403).json({
-      status: 403,
-      errorMessage: errorMessage ?? '400 Forbidden',
-      success: false,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 403,
+        errorMessage: errorMessage ?? '400 Forbidden',
+        success: false,
+      })
+    )
   },
   notFound: (errorMessage?: string) => {
-    return res.status(404).json({
-      status: 404,
-      errorMessage: errorMessage ?? '404 Not Found',
-      success: false,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 404,
+        errorMessage: errorMessage ?? '404 Not Found',
+        success: false,
+      })
+    )
   },
   methodNotAllowed: (errorMessage?: string) => {
-    return res.status(405).json({
-      status: 405,
-      errorMessage: errorMessage ?? '405 Not Allowed',
-      success: false,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 405,
+        errorMessage: errorMessage ?? '405 Not Allowed',
+        success: false,
+      })
+    )
   },
   internalServerError: (errorMessage?: string) => {
-    return res.status(500).json({
-      status: 500,
-      errorMessage: errorMessage ?? '500 Internal Server Error',
-      success: false,
-    })
+    return new NextResponse(
+      JSON.stringify({
+        status: 500,
+        errorMessage: errorMessage ?? '500 Internal Server Error',
+        success: false,
+      })
+    )
   },
 })
