@@ -9,36 +9,25 @@ import {
   Grid,
 } from '@mui/material'
 import { useConvertNotionWithReactComponent } from './hooks/convertNotionWithReactComponent'
-import { useQuery } from '@tanstack/react-query'
 import { TableOfContents } from './parts/TableOfContents'
 import { TitleWrapper } from './parts/TitleWrapper'
 import { theme } from '../../../theme'
-import { notionApi } from '../../../lib/client/notion'
+import { BlocksObjectSerialized } from '~/types/notion/block'
+import { PageObjectSerialized } from '~/types/notion/page'
 
 type ArticleContentsPageProps = {
-  pageId: string
+  blocks: BlocksObjectSerialized[]
+  page: PageObjectSerialized
 }
 
 export const ArticleContentsPage: React.FC<ArticleContentsPageProps> = ({
-  pageId,
+  blocks,
+  page,
 }) => {
-  const { data, isLoading } = useQuery({
-    queryKey: ['pages', pageId],
-    queryFn: () => notionApi.getBlocks({ pageId }),
-    enabled: !!pageId, // propsのpageIdが渡されてからfetchする
-  })
-
-  const databaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID ?? ''
-  const page = useQuery({
-    queryKey: ['pages'],
-    queryFn: () => notionApi.getPages({ databaseId }),
-    enabled: !!databaseId && !!pageId,
-  }).data?.filter((row: any) => row.id == pageId)[0]
-
   const { convertNotionWithReactComponent } =
     useConvertNotionWithReactComponent()
 
-  if (isLoading)
+  if (!blocks)
     return (
       <Container
         maxWidth='md'
@@ -93,8 +82,8 @@ export const ArticleContentsPage: React.FC<ArticleContentsPageProps> = ({
                   ))}
               </Box>
               <Box component='div'>
-                {data &&
-                  data.map((block: any, id: number) => {
+                {blocks &&
+                  blocks.map((block: any, id: number) => {
                     return (
                       <Box key={`${id}${block.content}`} component='div'>
                         {convertNotionWithReactComponent(block)}
@@ -105,7 +94,7 @@ export const ArticleContentsPage: React.FC<ArticleContentsPageProps> = ({
             </Paper>
           </Grid>
           <Grid item xs={12} md={3.6} lg={3.6}>
-            <TableOfContents data={data ?? []} />
+            <TableOfContents data={blocks ?? []} />
           </Grid>
         </Grid>
       </Container>

@@ -1,5 +1,7 @@
 import { Fragment } from 'react'
 import { ArticleContentsPage } from '~/components/pages/articleContents/ArticleContents'
+import { notionApi } from '~/lib/client/notion'
+import { PageObjectSerialized } from '~/types/notion/page'
 import { ArticleHead } from '../head'
 
 type ArticleContentsProps = {
@@ -8,13 +10,19 @@ type ArticleContentsProps = {
   }
 }
 
-const ArticleContents: React.FC<ArticleContentsProps> = ({ params }) => {
+export default async function ArticleContents({
+  params,
+}: ArticleContentsProps) {
+  const pageId = params.pageId
+  const databaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID ?? ''
+  const blocks = await notionApi.getBlocks({ pageId })
+  const pages = await notionApi.getPages({ databaseId })
+  const page = pages.filter((row: PageObjectSerialized) => row.id == pageId)[0]
+
   return (
     <Fragment>
       <ArticleHead />
-      <ArticleContentsPage pageId={params?.pageId as string} />
+      <ArticleContentsPage blocks={blocks} page={page} />
     </Fragment>
   )
 }
-
-export default ArticleContents
