@@ -5,7 +5,7 @@ import React from 'react'
 import { Box } from '@mui/material'
 import { BookMarkBar } from './BookMarkBar'
 import { ApplicationBar } from './ApplicationBar'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 
 export const Header: React.FC = () => {
   return (

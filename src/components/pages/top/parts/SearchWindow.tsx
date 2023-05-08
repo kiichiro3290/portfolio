@@ -3,7 +3,7 @@
 import React from 'react'
 import { Search } from '@mui/icons-material'
 import { Paper, InputBase } from '@mui/material'
-import { theme } from '../../../../app/theme'
+import { theme } from '../../../../theme'
 
 export const SearchWindow: React.FC = () => {
   return (

@@ -12,7 +12,7 @@ import {
 } from '@mui/material'
 import { usePopOver } from '../../pages/top/hooks/usePopOver'
 import { Apps } from '@mui/icons-material'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 import { MenuIcon } from '../../parts/MenuIcon/MenuIcon'
 import { useRouter } from 'next/navigation'
 

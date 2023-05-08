@@ -6,7 +6,7 @@ import { Box, Grid } from '@mui/material'
 import { Container } from '@mui/material'
 import { SearchWindow } from './parts/SearchWindow'
 import { useRouter } from 'next/navigation'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 import { MenuIcon } from '../../parts/MenuIcon/MenuIcon'
 
 export const TopPage: React.FC = () => {

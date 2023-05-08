@@ -2,7 +2,7 @@
 
 import React from 'react'
 import { Paper, Typography, Box } from '@mui/material'
-import { theme } from '../../../../app/theme'
+import { theme } from '../../../../theme'
 import { BlocksObjectSerialized } from '../../../../types/notion/block'
 
 type TableOfContentsProps = {

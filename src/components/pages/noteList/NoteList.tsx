@@ -3,7 +3,7 @@
 import React, { Fragment, SyntheticEvent, useState } from 'react'
 import { Box, Container, Grid, Tab, Tabs, Typography } from '@mui/material'
 import { ArticleCard } from './parts/ArticleCard'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 import { PageObjectSerialized } from '../../../types/notion/page'
 
 type NoteListProps = {

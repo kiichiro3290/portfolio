@@ -4,7 +4,7 @@ import React from 'react'
 
 import { Box, Typography, Link } from '@mui/material'
 import Image from 'next/image'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 
 export const BookMarkBar: React.FC = () => {
   return (

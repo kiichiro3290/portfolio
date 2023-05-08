@@ -3,7 +3,7 @@
 import React from 'react'
 import { Card, Box, Chip, Typography } from '@mui/material'
 import Link from 'next/link'
-import { theme } from '../../../../app/theme'
+import { theme } from '../../../../theme'
 
 export type ArticleCardProps = {
   lastEdittedAt: string

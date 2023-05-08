@@ -8,7 +8,7 @@ import { CodeComponent, CodeProps } from 'react-markdown/lib/ast-to-react'
 import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import Image from 'next/image'
 import { Container } from '@mui/system'
-import { theme } from '../../../../app/theme'
+import { theme } from '../../../../theme'
 import { BlocksObjectSerialized } from '../../../../types/notion/block'
 
 type CodeBlockTitleProps = {

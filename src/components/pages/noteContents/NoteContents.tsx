@@ -13,7 +13,7 @@ import { useConvertNotionWithReactComponent } from './hooks/convertNotionWithRea
 import { useQuery } from '@tanstack/react-query'
 import { TableOfContents } from './parts/TableOfContents'
 import { TitleWrapper } from './parts/TitleWrapper'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 import { notionApi } from '../../../lib/client/notion'
 
 type NoteContentsPageProps = {

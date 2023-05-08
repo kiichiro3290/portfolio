@@ -3,7 +3,7 @@
 import React from 'react'
 import { Description } from '@mui/icons-material'
 import { Typography, IconButton, Avatar } from '@mui/material'
-import { theme } from '../../../app/theme'
+import { theme } from '../../../theme'
 
 export type MenuIconProps = {
   onClick?: () => void
