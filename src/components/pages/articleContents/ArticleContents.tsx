@@ -12,12 +12,10 @@ import { useConvertNotionWithReactComponent } from './hooks/convertNotionWithRea
 import { TableOfContents } from './parts/TableOfContents'
 import { TitleWrapper } from './parts/TitleWrapper'
 import { theme } from '../../../theme'
-import { BlocksObjectSerialized } from '~/types/notion/block'
-import { PageObjectSerialized } from '~/types/notion/page'
 
 type ArticleContentsPageProps = {
-  blocks: BlocksObjectSerialized[]
-  page: PageObjectSerialized
+  blocks: Block[]
+  page: Page
 }
 
 export const ArticleContentsPage: React.FC<ArticleContentsPageProps> = ({
@@ -77,15 +75,15 @@ export const ArticleContentsPage: React.FC<ArticleContentsPageProps> = ({
               >
                 {page &&
                   page.tags &&
-                  page.tags.map((row: any, id: number) => (
-                    <Chip key={id} label={row} color='primary' />
+                  page.tags.map((item: string, id: number) => (
+                    <Chip key={id} label={item} color='primary' />
                   ))}
               </Box>
               <Box component='div'>
                 {blocks &&
-                  blocks.map((block: any, id: number) => {
+                  blocks.map((block: Block, id: number) => {
                     return (
-                      <Box key={`${id}${block.content}`} component='div'>
+                      <Box key={`${id}${block}`} component='div'>
                         {convertNotionWithReactComponent(block)}
                       </Box>
                     )

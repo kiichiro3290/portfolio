@@ -1,4 +1,3 @@
-import { PageObjectSerialized } from '~/types/notion/page'
 import { createApiResponse } from '~/utils/response'
 import {
   addPageNotionDb,
@@ -22,7 +21,7 @@ export async function GET(req: Request) {
   }
 
   // 成功
-  return createApiResponse<PageObjectSerialized[]>().success(data)
+  return createApiResponse<Page[]>().success(data)
 }
 
 export async function POST(req: Request) {

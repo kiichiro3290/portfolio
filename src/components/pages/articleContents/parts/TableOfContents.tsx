@@ -2,10 +2,9 @@
 
 import { Paper, Typography, Box } from '@mui/material'
 import { theme } from '../../../../theme'
-import { BlocksObjectSerialized } from '../../../../types/notion/block'
 
 type TableOfContentsProps = {
-  data: BlocksObjectSerialized[]
+  data: Block[]
 }
 
 export const TableOfContents: React.FC<TableOfContentsProps> = ({ data }) => {
@@ -32,10 +31,20 @@ export const TableOfContents: React.FC<TableOfContentsProps> = ({ data }) => {
           }}
         >
           {data?.map((block, id) => {
-            if (block.type == 'heading_1') {
-              return <Heading1List key={id} content={block.content ?? ''} />
-            } else if (block.type == 'heading_2') {
-              return <Heading2List key={id} content={block.content ?? ''} />
+            if (block.heading1) {
+              return (
+                <Heading1List
+                  key={id}
+                  content={block.heading1.richTexts[0].plainText ?? ''}
+                />
+              )
+            } else if (block.heading2) {
+              return (
+                <Heading2List
+                  key={id}
+                  content={block.heading2.richTexts[0].plainText ?? ''}
+                />
+              )
             }
           })}
         </Box>

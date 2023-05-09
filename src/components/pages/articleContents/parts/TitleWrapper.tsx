@@ -1,11 +1,10 @@
 'use client'
 
 import { Container, Typography } from '@mui/material'
-import { PageObjectSerialized } from '../../../../types/notion/page'
 import { theme } from '../../../../theme'
 
 type TitleWrapperProps = {
-  page: PageObjectSerialized
+  page: Page
 }
 
 export const TitleWrapper: React.FC<TitleWrapperProps> = ({ page }) => {

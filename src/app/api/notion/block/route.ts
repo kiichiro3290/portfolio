@@ -1,6 +1,5 @@
-import { BlocksObjectSerialized } from '~/types/notion/block'
+import { getNotionAllBlock } from '~/lib/backend/notion'
 import { createApiResponse } from '~/utils/response'
-import { getNotionBlocksDataInPage } from '../../../../lib/backend/notion'
 
 export async function GET(req: Request) {
   const { searchParams } = new URL(req.url)
@@ -11,7 +10,7 @@ export async function GET(req: Request) {
     return createApiResponse().badRequest()
   }
 
-  const data = await getNotionBlocksDataInPage(pageId)
+  const data = await getNotionAllBlock(pageId)
 
   if (!data) {
     // データが存在しない場合
@@ -19,5 +18,5 @@ export async function GET(req: Request) {
   }
 
   // 成功
-  return createApiResponse<BlocksObjectSerialized[]>().success(data)
+  return createApiResponse<Block[]>().success(data)
 }

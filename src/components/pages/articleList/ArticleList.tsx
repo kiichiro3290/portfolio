@@ -4,10 +4,9 @@ import { Fragment, SyntheticEvent, useState } from 'react'
 import { Box, Container, Grid, Tab, Tabs, Typography } from '@mui/material'
 import { ArticleCard } from './parts/ArticleCard'
 import { theme } from '../../../theme'
-import { PageObjectSerialized } from '../../../types/notion/page'
 
 type ArticleListProps = {
-  pages: PageObjectSerialized[]
+  pages: Page[]
 }
 
 export const ArticleList: React.FC<ArticleListProps> = ({ pages }) => {
