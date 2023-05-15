@@ -32,6 +32,7 @@ const CodeBlockTitle: React.FC<CodeBlockTitleProps> = ({ fileName }) => {
     </Box>
   )
 }
+
 const CodeBlock: CodeComponent = ({
   children,
   className,
@@ -42,10 +43,11 @@ const CodeBlock: CodeComponent = ({
   }
   const match = /language-(\w+)(:.+)/.exec(className || '')
   const lang = match && match[1] ? match[1] : ''
-  const name = match && match[2] ? match[2].slice(1) : ''
+  const caption = match && match[2] ? match[2].slice(1) : ''
+
   return (
-    <Box sx={{ position: 'relative' }}>
-      {name && <CodeBlockTitle fileName={name} />}
+    <Box component='div' sx={{ position: 'relative' }}>
+      {caption && <CodeBlockTitle fileName={caption} />}
       <SyntaxHighlighter language={lang} style={a11yDark}>
         {String(children).replace(/\n$/, '')}
       </SyntaxHighlighter>
@@ -55,6 +57,7 @@ const CodeBlock: CodeComponent = ({
 
 export const useConvertNotionWithReactComponent = () => {
   const convertNotionWithReactComponent = (block: Block) => {
+    // 見出し1
     if (block.heading1) {
       return (
         <Box
@@ -74,6 +77,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 見出し2
     if (block.heading2) {
       return (
         <Typography
@@ -86,6 +90,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 見出し3
     if (block.heading3) {
       return (
         <Typography
@@ -98,6 +103,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 段落
     if (block.paragraph) {
       return (
         <Typography variant='body1' component='p'>
@@ -106,6 +112,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 箇条書きリスト
     if (block.bulletedListItem) {
       return (
         <ol>
@@ -119,6 +126,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 数字付きリスト
     if (block.numberedListItem) {
       return (
         <ol>
@@ -132,6 +140,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // TODOリスト
     if (block.toDo) {
       return (
         <ol>
@@ -145,6 +154,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 引用
     if (block.quote) {
       return (
         <Box
@@ -160,6 +170,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // コールアウト
     if (block.callout) {
       return (
         <Alert severity='info' sx={{ my: theme.spacing(1) }}>
@@ -170,16 +181,23 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // コードブロック
     if (block.code) {
+      const divider = '```'
+      const codeText = `${divider}:${block.code.language} \n ${block.code.richTexts[0].plainText} \n${divider}`
       return (
         <Box sx={{ mb: theme.spacing(4), mt: theme.spacing(6) }}>
-          <ReactMarkdown className='' components={{ code: CodeBlock }}>
-            {block.code.richTexts[0].plainText ?? ''}
+          <ReactMarkdown
+            className={`${block.code.caption},${block.code.language}`}
+            components={{ code: CodeBlock }}
+          >
+            {codeText ?? ''}
           </ReactMarkdown>
         </Box>
       )
     }
 
+    // ブックマーク
     if (block.bookmark) {
       return (
         <Link
@@ -231,6 +249,7 @@ export const useConvertNotionWithReactComponent = () => {
       )
     }
 
+    // 画像
     if (block.image) {
       return (
         <Container maxWidth='md' sx={{ my: theme.spacing(4) }}>

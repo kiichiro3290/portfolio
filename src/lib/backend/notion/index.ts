@@ -56,54 +56,71 @@ export const getNotionAllBlock = async (pageId: string) => {
     for (let i = 0; i < allBlocks.length; i++) {
       const block = allBlocks[i]
 
+      // 箇条書きリスト
       if (
         block.type === 'bulleted_list_item' &&
         block.hasChildren &&
         block.bulletedListItem
       ) {
         block.bulletedListItem.children = await getNotionAllBlock(block.id)
-      } else if (
+        continue
+      }
+
+      // 数字付きリスト
+      if (
         block.type === 'numbered_list_item' &&
         block.hasChildren &&
         block.numberedListItem
       ) {
         block.numberedListItem.children = await getNotionAllBlock(block.id)
-      } else if (block.type === 'to_do' && block.hasChildren && block.toDo) {
+        continue
+      }
+
+      // TODOリスト
+      if (block.type === 'to_do' && block.hasChildren && block.toDo) {
         block.toDo.children = await getNotionAllBlock(block.id)
-      } else if (block.type === 'toggle' && block.hasChildren && block.toggle) {
+        continue
+      }
+
+      // トグルリスト
+      if (block.type === 'toggle' && block.hasChildren && block.toggle) {
         block.toggle.children = await getNotionAllBlock(block.id)
-      } else if (
-        block.type === 'paragraph' &&
-        block.hasChildren &&
-        block.paragraph
-      ) {
+      }
+
+      // 段落(平文)
+      if (block.type === 'paragraph' && block.hasChildren && block.paragraph) {
         block.paragraph.children = await getNotionAllBlock(block.id)
-      } else if (
-        block.type === 'heading_1' &&
-        block.hasChildren &&
-        block.heading1
-      ) {
+        continue
+      }
+
+      // 見出し1
+      if (block.type === 'heading_1' && block.hasChildren && block.heading1) {
         block.heading1.children = await getNotionAllBlock(block.id)
-      } else if (
-        block.type === 'heading_2' &&
-        block.hasChildren &&
-        block.heading2
-      ) {
+        continue
+      }
+
+      // 見出し2
+      if (block.type === 'heading_2' && block.hasChildren && block.heading2) {
         block.heading2.children = await getNotionAllBlock(block.id)
-      } else if (
-        block.type === 'heading_3' &&
-        block.hasChildren &&
-        block.heading3
-      ) {
+        continue
+      }
+
+      // 見出し3
+      if (block.type === 'heading_3' && block.hasChildren && block.heading3) {
         block.heading3.children = await getNotionAllBlock(block.id)
-      } else if (block.type === 'quote' && block.hasChildren && block.quote) {
+        continue
+      }
+
+      // 引用文
+      if (block.type === 'quote' && block.hasChildren && block.quote) {
         block.quote.children = await getNotionAllBlock(block.id)
-      } else if (
-        block.type === 'callout' &&
-        block.hasChildren &&
-        block.callout
-      ) {
+        continue
+      }
+
+      // コールアウト(コールアウトは結構便利)
+      if (block.type === 'callout' && block.hasChildren && block.callout) {
         block.callout.children = await getNotionAllBlock(block.id)
+        continue
       }
     }
   }
