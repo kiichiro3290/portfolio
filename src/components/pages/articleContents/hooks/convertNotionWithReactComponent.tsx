@@ -1,11 +1,11 @@
 import { Fragment } from 'react'
-import { Box, Typography, Divider, Alert, Link, Card } from '@mui/material'
+import { Box, Typography, Divider, Alert } from '@mui/material'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
 
 import Image from 'next/image'
 import { Container } from '@mui/system'
 import { theme } from '../../../../theme'
-import { CodeBlock } from '../parts/CodeBlock'
+import { BookMarkBlock, CodeBlock } from '../parts/ArticleParts'
 
 export const useConvertNotionWithReactComponent = () => {
   const convertNotionWithReactComponent = (block: Block) => {
@@ -152,54 +152,7 @@ export const useConvertNotionWithReactComponent = () => {
 
     // ブックマーク
     if (block.bookmark) {
-      return (
-        <Link
-          component='a'
-          href={block.bookmark.url}
-          underline='none'
-          target='_blank'
-        >
-          <Card
-            component='div'
-            sx={{
-              height: theme.spacing(12),
-              my: theme.spacing(2),
-              display: 'flex',
-              flexDirection: 'column',
-              borderLeft: 'solid',
-              borderRight: 'solid',
-              borderLeftColor: theme.palette.primary.main,
-              borderRightColor: theme.palette.primary.main,
-              borderLeftWidth: theme.spacing(0.8),
-              borderRightWidth: theme.spacing(0.8),
-              p: theme.spacing(1.5),
-            }}
-          >
-            <Typography
-              sx={{
-                height: theme.spacing(5),
-                lineHeight: theme.spacing(5),
-                textOverflow: 'hidden',
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {'todo: ogp'}
-            </Typography>
-
-            <Typography
-              variant='caption'
-              sx={{
-                textOverflow: 'hidden',
-                height: theme.spacing(2),
-                lineHeight: theme.spacing(2),
-                whiteSpace: 'nowrap',
-              }}
-            >
-              {'todo: ogp'}
-            </Typography>
-          </Card>
-        </Link>
-      )
+      return <BookMarkBlock bookmark={block.bookmark} />
     }
 
     // 画像

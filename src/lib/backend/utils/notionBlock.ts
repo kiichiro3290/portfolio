@@ -1,4 +1,5 @@
 import { BlockObject, RichTextObject } from '../types'
+import { fetchOgpData } from './fetchOgpData'
 
 // NotionAPIを叩いた後にParserが必要
 export const genNotionBlock = async (
@@ -175,8 +176,12 @@ export const genNotionBlock = async (
         // todo: embed
 
         case 'bookmark': {
+          const ogp = blockObject.bookmark?.url
+            ? await fetchOgpData(blockObject.bookmark?.url)
+            : undefined
           const bookmark: Bookmark = {
             url: blockObject.bookmark?.url ?? '',
+            ogp: ogp,
           }
 
           block.bookmark = bookmark
