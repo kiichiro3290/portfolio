@@ -2,7 +2,6 @@ import { JSDOM } from 'jsdom'
 import { OgpData } from '../../../types/ogp'
 
 export const fetchOgpData = async (url: string) => {
-  console.log(url)
   const res = await fetch(url)
     .then((res) => res.text())
     .then((text) => {
@@ -46,7 +45,6 @@ export const fetchOgpData = async (url: string) => {
 
       return ogpData
     })
-  console.log(res)
 
   return res
 }
