@@ -1,59 +1,11 @@
 import { Fragment } from 'react'
 import { Box, Typography, Divider, Alert, Link, Card } from '@mui/material'
 import { ReactMarkdown } from 'react-markdown/lib/react-markdown'
-import SyntaxHighlighter from 'react-syntax-highlighter/dist/cjs/prism'
-import { CodeComponent, CodeProps } from 'react-markdown/lib/ast-to-react'
 
-// シンタックスハイライトのCSSテンプレートがいくつか定義されている→その中で一番かっこいいのがa11yDark
-import { a11yDark } from 'react-syntax-highlighter/dist/cjs/styles/prism'
 import Image from 'next/image'
 import { Container } from '@mui/system'
 import { theme } from '../../../../theme'
-
-type CodeBlockTitleProps = {
-  fileName: string
-}
-const CodeBlockTitle: React.FC<CodeBlockTitleProps> = ({ fileName }) => {
-  return (
-    <Box
-      component='div'
-      sx={{
-        display: 'inline-block',
-        position: 'absolute',
-        top: `-${theme.spacing(4)}`,
-        left: 0,
-        padding: theme.spacing(0.7),
-        color: 'white',
-        backgroundColor: 'CaptionText',
-        borderRadius: `${theme.spacing(0.8)} ${theme.spacing(0.8)} 0 0`,
-      }}
-    >
-      {fileName}
-    </Box>
-  )
-}
-
-const CodeBlock: CodeComponent = ({
-  children,
-  className,
-  inline,
-}: CodeProps) => {
-  if (inline) {
-    return <code className={className}>{children}</code>
-  }
-  const match = /language-(\w+)(:.+)/.exec(className || '')
-  const lang = match && match[1] ? match[1] : ''
-  const caption = match && match[2] ? match[2].slice(1) : ''
-
-  return (
-    <Box component='div' sx={{ position: 'relative' }}>
-      {caption && <CodeBlockTitle fileName={caption} />}
-      <SyntaxHighlighter language={lang} style={a11yDark}>
-        {String(children).replace(/\n$/, '')}
-      </SyntaxHighlighter>
-    </Box>
-  )
-}
+import { CodeBlock } from '../parts/CodeBlock'
 
 export const useConvertNotionWithReactComponent = () => {
   const convertNotionWithReactComponent = (block: Block) => {
@@ -184,13 +136,14 @@ export const useConvertNotionWithReactComponent = () => {
     // コードブロック
     if (block.code) {
       const divider = '```'
-      const codeText = `${divider}:${block.code.language} \n ${block.code.richTexts[0].plainText} \n${divider}`
+
+      const codeText = `${divider}:${block.code.language}:${
+        block.code.caption.length !== 0 ? block.code.caption[0].plainText : ''
+      } \n ${block.code.richTexts[0].plainText} \n${divider}`
+
       return (
         <Box sx={{ mb: theme.spacing(4), mt: theme.spacing(6) }}>
-          <ReactMarkdown
-            className={`${block.code.caption},${block.code.language}`}
-            components={{ code: CodeBlock }}
-          >
+          <ReactMarkdown components={{ code: CodeBlock }}>
             {codeText ?? ''}
           </ReactMarkdown>
         </Box>
