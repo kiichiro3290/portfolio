@@ -111,7 +111,6 @@ export const genNotionBlock = async (
         }
 
         case 'image': {
-          console.log(blockObject.image)
           const caption = blockObject.image?.caption?.map(genRichText)
 
           const image: Image = {
