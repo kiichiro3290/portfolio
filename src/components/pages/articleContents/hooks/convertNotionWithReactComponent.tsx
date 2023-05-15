@@ -7,6 +7,21 @@ import { Container } from '@mui/system'
 import { theme } from '../../../../theme'
 import { BookMarkBlock, CodeBlock } from '../parts/ArticleParts'
 
+const convertRichTextWithComponent = (richTexts: RichText[]) => {
+  // 文字の装飾がない場合
+  if (richTexts.length == 1) {
+    return <Fragment>{richTexts[0].plainText}</Fragment>
+  }
+
+  return (
+    <Fragment>
+      {richTexts.map((richText: RichText, id: number) => {
+        return <Fragment key={id}>{richText.plainText}</Fragment>
+      })}
+    </Fragment>
+  )
+}
+
 export const useConvertNotionWithReactComponent = () => {
   const convertNotionWithReactComponent = (block: Block) => {
     // 見出し1
@@ -22,7 +37,7 @@ export const useConvertNotionWithReactComponent = () => {
           }}
         >
           <Typography variant='h4' component='h2'>
-            {block.heading1.richTexts[0].plainText}
+            {convertRichTextWithComponent(block.heading1.richTexts)}
           </Typography>
           <Divider />
         </Box>
@@ -37,7 +52,7 @@ export const useConvertNotionWithReactComponent = () => {
           component='h3'
           sx={{ mt: theme.spacing(4), mb: theme.spacing(2) }}
         >
-          {block.heading2.richTexts[0].plainText}
+          {convertRichTextWithComponent(block.heading2.richTexts)}
         </Typography>
       )
     }
@@ -50,7 +65,7 @@ export const useConvertNotionWithReactComponent = () => {
           component='h4'
           sx={{ mt: theme.spacing(4), mb: theme.spacing(2) }}
         >
-          {block.heading3.richTexts[0].plainText}
+          {convertRichTextWithComponent(block.heading3.richTexts)}
         </Typography>
       )
     }
@@ -59,7 +74,7 @@ export const useConvertNotionWithReactComponent = () => {
     if (block.paragraph) {
       return (
         <Typography variant='body1' component='p'>
-          {block.paragraph.richTexts[0].plainText}
+          {convertRichTextWithComponent(block.paragraph.richTexts)}
         </Typography>
       )
     }
@@ -67,14 +82,16 @@ export const useConvertNotionWithReactComponent = () => {
     // 箇条書きリスト
     if (block.bulletedListItem) {
       return (
-        <ol>
-          <li>{block.bulletedListItem.richTexts[0].plainText}</li>
+        <ul>
+          <li>
+            {convertRichTextWithComponent(block.bulletedListItem.richTexts)}
+          </li>
           {block.bulletedListItem.children?.map((item, id) => (
             <Fragment key={id}>
               {convertNotionWithReactComponent(item)}
             </Fragment>
           ))}
-        </ol>
+        </ul>
       )
     }
 
@@ -82,7 +99,9 @@ export const useConvertNotionWithReactComponent = () => {
     if (block.numberedListItem) {
       return (
         <ol>
-          <li>{block.numberedListItem.richTexts[0].plainText}</li>
+          <li>
+            {convertRichTextWithComponent(block.numberedListItem.richTexts)}
+          </li>
           {block.numberedListItem.children?.map((item, id) => (
             <Fragment key={id}>
               {convertNotionWithReactComponent(item)}
@@ -96,7 +115,7 @@ export const useConvertNotionWithReactComponent = () => {
     if (block.toDo) {
       return (
         <ol>
-          <li>{block.toDo.richTexts[0].plainText}</li>
+          <li>{convertRichTextWithComponent(block.toDo.richTexts)}</li>
           {block.toDo.children?.map((item, id) => (
             <Fragment key={id}>
               {convertNotionWithReactComponent(item)}
@@ -116,7 +135,7 @@ export const useConvertNotionWithReactComponent = () => {
           }}
         >
           <Typography component='p' variant='body1'>
-            {block.quote.richTexts[0].plainText}
+            {convertRichTextWithComponent(block.quote.richTexts)}
           </Typography>
         </Box>
       )
@@ -127,7 +146,7 @@ export const useConvertNotionWithReactComponent = () => {
       return (
         <Alert severity='info' sx={{ my: theme.spacing(1) }}>
           <Typography component='p' variant='body1'>
-            {block.callout.richTexts[0].plainText}
+            {convertRichTextWithComponent(block.callout.richTexts)}
           </Typography>
         </Alert>
       )
