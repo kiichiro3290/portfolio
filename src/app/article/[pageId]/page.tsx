@@ -1,6 +1,4 @@
 import { Fragment } from 'react'
-import { ArticleContentsPage } from '~/ui/pages/articleContents/ArticleContents'
-import { notionApi } from '~/lib/client/notion'
 import { ArticleHead } from '../head'
 
 type ArticleContentsProps = {
@@ -9,19 +7,11 @@ type ArticleContentsProps = {
   }
 }
 
-export default async function ArticleContents({
-  params,
-}: ArticleContentsProps) {
-  const pageId = params.pageId
-  const databaseId = process.env.NEXT_PUBLIC_NOTION_DATABASE_ID ?? ''
-  const blocks = await notionApi.getBlocks({ pageId })
-  const pages = await notionApi.getPages({ databaseId })
-  const page = pages.filter((row: Page) => row.id == pageId)[0]
-
+export default async function ArticleContents() {
   return (
     <Fragment>
       <ArticleHead />
-      <ArticleContentsPage blocks={blocks} page={page} />
+      {/* <ArticleContentsPage blocks={blocks} page={page} /> */}
     </Fragment>
   )
 }
