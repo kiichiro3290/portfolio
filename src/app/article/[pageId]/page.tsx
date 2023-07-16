@@ -1,5 +1,5 @@
 import { Fragment } from 'react'
-import { ArticleContentsPage } from '~/components/pages/articleContents/ArticleContents'
+import { ArticleContentsPage } from '~/ui/pages/articleContents/ArticleContents'
 import { notionApi } from '~/lib/client/notion'
 import { ArticleHead } from '../head'
 
