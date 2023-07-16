@@ -1,8 +1,5 @@
 'use client'
 
-import * as THREE from 'three'
-import { GLTFLoader, GLTF } from 'three/examples/jsm/loaders/GLTFLoader'
-
 import Image from 'next/image'
 import { Box, Grid } from '@mui/material'
 import { Container } from '@mui/material'
